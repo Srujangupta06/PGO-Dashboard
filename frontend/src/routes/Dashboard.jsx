@@ -1,7 +1,10 @@
+import Profile from "../components/pages/Profile";
+import Sidebar from "../components/pages/Sidebar";
+
 const Dashboard = () => {
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Dashboard</h1>
+      <Sidebar />
     </div>
   );
 };
