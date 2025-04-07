@@ -7,7 +7,7 @@ import cors from "cors";
 import userRoutes from "./router/userRouter.js";
 import customerReviewRoutes from "./router/customerReviewRouter.js";
 import hostelRoutes from "./router/hostelRouter.js";
-import adminRoutes from "./router/adminRouter.js";
+
 const app = express();
 app.use(express.json());
 app.use(
@@ -19,6 +19,12 @@ app.use(
 );
 const PORT = process.env.PORT || 5000;
 
+
+app.use("/api/user", userRoutes);
+
+app.use("/api/user", customerReviewRoutes);
+
+app.use("/api", hostelRoutes);
 const initializeDBAndServer = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
@@ -32,10 +38,4 @@ const initializeDBAndServer = async () => {
 };
 initializeDBAndServer();
 
-app.use("/api/user", userRoutes);
 
-app.use("/api/admin", adminRoutes);
-
-app.use("/api/user", customerReviewRoutes);
-
-app.use("/api", hostelRoutes);

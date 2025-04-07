@@ -92,7 +92,7 @@ const Login = () => {
               value={mobileNumber}
               onChange={(e) => {
                 setMobileNumber(e.target.value);
-                setErrorMessage("");
+              
               }}
               placeholder="Enter your Mobile Number"
               className="w-full border-b-2 border-gray-300 focus:border-blue-500 outline-none py-1.5 px-1 transition-all duration-200"
@@ -110,7 +110,7 @@ const Login = () => {
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
-                  setErrorMessage("");
+                 
                 }}
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your Password"
@@ -129,20 +129,21 @@ const Login = () => {
               </button>
             </div>
           </div>
-          {errorMessage && (
-            <p className="mb-2 italic text-red-700 font-semibold text-sm">
+          {/* {errorMessage && (
+            <p className="mb-2  text-red-700 font-semibold text-sm">
               *{errorMessage}
             </p>
-          )}
+          )} */}
           {/* Submit Button */}
-          <button className="mb-2 w-full mt-4 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-all duration-200">
+          <button className="mb-4 w-full mt-4 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-all duration-200">
             Login
           </button>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-x-2">
+            <span className="text-gray-500 text-sm">
+              Don't have an Account?
+            </span>
             <Link to="/auth/register">
-              <span className="text-blue-500 text-sm">
-                Don't have an Account?
-              </span>
+              <span className="text-blue-500 text-sm underline">Register Here</span>
             </Link>
             {/* <Link to="/register">
               <span className="text-blue-500 text-sm">Forgot Password</span>

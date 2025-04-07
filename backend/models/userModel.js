@@ -1,11 +1,30 @@
 import mongoose from "mongoose";
-
+import validator from "validator";
 const userSchema = mongoose.Schema(
   {
-    name: { type: String, required: true },
-    email: { type: String },
-    mobile: { type: String, required: true },
-    password: { type: String, required: true },
+    name: { type: String, required: true, trim: true },
+    email: {
+      type: String,
+      trim: true,
+      lowercase: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Email is not Valid");
+        }
+      },
+    },
+    mobileNumber: {
+      type: String,
+      required: true,
+      unique: true,
+      maxLength: 10,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   { timestamps: true }
 );

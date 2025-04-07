@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { backendUrl, toastNoficationSettings } from "../utils/utils";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
@@ -11,7 +11,7 @@ const Registration = () => {
   const [password, setPassword] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  const navigate = useNavigate();
   const checkFormValidations = () => {
     let errors = [];
     const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$!]).{8,}$/;
@@ -27,6 +27,10 @@ const Registration = () => {
     }
 
     return errors;
+  };
+
+  const onHandleLoginBtn = () => {
+    navigate("/auth/login");
   };
 
   const onHandleFormSubmit = (e) => {
@@ -186,15 +190,21 @@ const Registration = () => {
           <button className="mb-2 w-full mt-4 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-all duration-200">
             Register
           </button>
-          <div className="flex items-center w-full my-4">
+
+          <div className="flex items-center w-full my-6">
             <hr className="flex-grow border-t border-gray-300" />
-            <Link className="text-gray-500 text-sm" to="/auth/login">
-              <span className="mx-3 text-blue-500 text-sm">
-                Already Have an Account
-              </span>
-            </Link>
+            <span className="mx-3 text-gray-400 text-xs tracking-wide uppercase">
+              or continue with account
+            </span>
             <hr className="flex-grow border-t border-gray-300" />
           </div>
+
+          <button
+            className="mb-2 w-full mt-2 bg-white text-blue-500 border border-blue-500 py-2 rounded-md hover:bg-blue-50 transition-all duration-200 shadow-sm"
+            onClick={onHandleLoginBtn}
+          >
+            Login
+          </button>
         </form>
       </div>
     </div>

@@ -1,41 +1,51 @@
 import { User } from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
+import validator from "validator";
 const generateToken = (user) => {
   return jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
 };
 
 export const userRegistration = async (req, res) => {
-  const { name, email, password, mobile } = req.body;
-  const userStatus = await User.findOne({ mobile });
-  if (userStatus) {
-    res
-      .status(400)
-      .json({ message: "Already user exists with same mobile number" });
-  } else {
-    const saltedRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltedRounds);
-    const newUser = new User({
-      name,
-      email,
-      password: hashedPassword,
-      mobile,
+  const data = req.body;
+  try {
+    const userStatus = await User.findOne({ mobileNumber: data?.mobileNumber });
+    if (userStatus) {
+      throw new Error("Already user exists with same Mobile number");
+    } else {
+      // Check for Password Strength
+      if (!validator.isStrongPassword(data?.password)) {
+        throw new Error("Password is not strong enough");
+      } else {
+        const saltedRounds = 10;
+        const hashedPassword = await bcrypt.hash(data?.password, saltedRounds);
+        const newUser = new User({
+          name: data?.name,
+          email: data?.email,
+          password: hashedPassword,
+          mobileNumber: data?.mobileNumber,
+        });
+        await newUser.save();
+        const token = generateToken(data?.mobileNumber + data?.password);
+        res
+          .status(200)
+          .json({ message: "User Registered Successfully", jwt_token: token });
+      }
+    }
+  } catch (err) {
+    console.log(err.message);
+    res.status(400).json({
+      message: err.message,
     });
-    await newUser.save();
-    const token = generateToken(mobile + password);
-    res
-      .status(200)
-      .json({ message: "User Registered Successfully", jwt_token: token });
   }
 };
 
 export const userLogin = async (req, res) => {
-  const { mobile, password } = req.body;
+  const { mobileNumber, password } = req.body;
 
   try {
     // Check if the user exists
-    const userStatus = await User.findOne({ mobile });
+    const userStatus = await User.findOne({ mobileNumber });
     if (!userStatus) {
       return res
         .status(404)
@@ -49,7 +59,7 @@ export const userLogin = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = generateToken(mobile + password);
+    const token = generateToken(mobileNumber + password);
     res
       .status(200)
       .json({ message: "User logged in successfully", jwt_token: token });
