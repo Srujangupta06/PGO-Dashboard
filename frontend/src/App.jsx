@@ -1,29 +1,19 @@
 import React, { lazy, Suspense } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-import Sidebar from "./components/pages/Sidebar";
-import Profile from "./components/pages/Profile";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Dashboard from "./routes/Dashboard";
 
 // Lazy loaded components
 const Home = lazy(() => import("./routes/Home"));
 const About = lazy(() => import("./routes/About"));
-const OwnerRegistration = lazy(() => import("./routes/OwnerRegistration"));
 const Registration = lazy(() => import("./routes/Registration"));
 const Login = lazy(() => import("./routes/Login"));
-const OwnerLogin = lazy(() => import("./routes/OwnerLogin"));
-const LazyDashboard = lazy(() => import("./routes/Dashboard"));
 const PageNotFound = lazy(() => import("./routes/PageNotFound"));
-
-// Define PrivateRoute
-const PrivateRoute = ({ children }) => {
-  const isAuthenticated = localStorage.getItem("token");
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
-};
 
 const App = () => {
   return (
@@ -33,8 +23,6 @@ const App = () => {
       <Suspense fallback={<div className="text-center mt-10">Loading...</div>}>
         <Routes>
           {/* Auth routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/registration" element={<Registration />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/register" element={<Registration />} />
 
@@ -60,42 +48,12 @@ const App = () => {
             }
           />
 
-          {/* Owner routes */}
-          <Route
-            path="/ownerRegistration"
-            element={
-              <ProtectedRoute>
-                <OwnerRegistration />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/ownerLogin"
-            element={
-              <ProtectedRoute>
-                <OwnerLogin />
-              </ProtectedRoute>
-            }
-          />
-
-          {/* Profile */}
-          <Route
-            path="/profile"
-            element={
-              <PrivateRoute>
-                <div className="h-screen flex flex-col items-center justify-center">
-                  <Profile />
-                </div>
-              </PrivateRoute>
-            }
-          />
-
           {/* Dashboard */}
           <Route
-            path="/lazy-dashboard"
+            path="/dashboard"
             element={
               <ProtectedRoute>
-                <LazyDashboard />
+                <Dashboard />
               </ProtectedRoute>
             }
           />
