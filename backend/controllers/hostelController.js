@@ -8,7 +8,7 @@ import { validateHostelData } from "../utils/validation.js";
 export const addHostelInfo = async (req, res) => {
   const { name, category, maxCapacity, totalRooms, rooms, ownerId } = req.body;
   const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt.
+  const decodedToken = jwt
   try {
     if (token ==="" ) {
       validateHostelData(req);
