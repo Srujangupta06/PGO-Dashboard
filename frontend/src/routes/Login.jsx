@@ -4,6 +4,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { backendUrl, toastNoficationSettings } from "../utils/utils";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -32,7 +33,7 @@ const Login = () => {
 
     // If no errors, proceed with login
     const userCredentials = {
-      mobile: mobileNumber,
+      mobileNumber: mobileNumber,
       password: password,
     };
     loginUser(userCredentials);
@@ -54,8 +55,8 @@ const Login = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        const { message, jwt_token } = data;
-        Cookies.set("jwtToken", jwt_token, { expires: 7 });
+        const { message, jwtToken } = data;
+        Cookies.set("jwtToken", jwtToken, { expires: 7 });
         toast.success(message, toastNoficationSettings);
         navigate("/dashboard");
       } else {

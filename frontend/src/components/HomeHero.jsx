@@ -16,7 +16,7 @@ const HomeHero = () => {
        
         <div className="flex items-center gap-x-4 gap-y-4 flex-wrap">
           <button
-            className="bg-blue-500 text-sm text-white px-4 py-1.5 rounded"
+            className="cursor-pointer bg-blue-500 text-sm text-white px-4 py-1.5 rounded"
             onClick={() => navigate("/auth/login")}
           >
             Register

@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 import validator from "validator";
 const userSchema = mongoose.Schema(
   {
+    avatarUrl: {
+      type: String,
+      default:
+        "https://www.shutterstock.com/image-vector/vector-design-avatar-dummy-sign-600nw-1290556063.jpg",
+    },
     name: { type: String, required: true, trim: true },
     email: {
       type: String,

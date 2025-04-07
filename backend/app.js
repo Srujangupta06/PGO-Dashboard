@@ -19,12 +19,12 @@ app.use(
 );
 const PORT = process.env.PORT || 5000;
 
-
 app.use("/api/user", userRoutes);
 
 app.use("/api/user", customerReviewRoutes);
 
-app.use("/api", hostelRoutes);
+app.use("/api/user/", hostelRoutes);
+
 const initializeDBAndServer = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
@@ -37,5 +37,3 @@ const initializeDBAndServer = async () => {
   }
 };
 initializeDBAndServer();
-
-

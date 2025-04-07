@@ -48,7 +48,7 @@ const Registration = () => {
       name: fullName,
       email,
       password,
-      mobile: mobileNumber,
+      mobileNumber,
     };
 
     registerUser(newUserCredentials);
@@ -72,9 +72,10 @@ const Registration = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        const { message, jwt_token } = data;
+        const { message, jwtToken } = data;
         toast.success(message, toastNoficationSettings);
-        Cookies.set("jwtToken", jwt_token, { expires: 7 });
+        Cookies.set("jwtToken", jwtToken, { expires: 7 });
+        navigate("/dashboard");
       } else {
         const data = await response.json();
         const { message } = data;
