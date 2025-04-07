@@ -10,7 +10,7 @@ import {
 } from "react-icons/fa";
 
 const Profile = () => {
-  const name = "Rajesh Kumar"; // Replace with dynamic name if needed
+  const name = "Rajesh Kumarrrr"; // Replace with dynamic name if needed
   const initials = name
     .split(" ")
     .map((n) => n[0])
@@ -88,5 +88,4 @@ export default Profile;
 // const Profile = () => {
 //   return <div>Profile</div>;
 // };
-
 // export default Profile;
