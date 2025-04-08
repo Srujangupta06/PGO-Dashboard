@@ -6,6 +6,7 @@ import {
   userLogin,
   userRegistration,
 } from "../controllers/userController.js";
+import { auth } from "../middlewares/auth.js";
 
 const router = express.Router();
 
@@ -13,10 +14,10 @@ router.post("/registration", userRegistration);
 
 router.post("/login", userLogin);
 
-router.get("/get-user-profile/:userId", getUserProfile);
+router.get("/get-user-profile", auth, getUserProfile);
 
-router.patch("/update-user-profile/:userId", updateUserProfile);
+router.patch("/update-user-profile", auth, updateUserProfile);
 
-router.delete("/delete-account/:userId", deleteUserProfile);
+router.delete("/delete-account", auth, deleteUserProfile);
 
 export default router;

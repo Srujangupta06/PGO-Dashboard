@@ -7,43 +7,106 @@ import { validateHostelData } from "../utils/validation.js";
 // API for Adding a Hostel
 export const addHostelInfo = async (req, res) => {
   const { name, category, maxCapacity, totalRooms, rooms, ownerId } = req.body;
-  const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt
+
   try {
-    if (token ==="" ) {
-      validateHostelData(req);
-      // Check only registered User can able to add
-      const owner = await User.findById(ownerId);
-      if (!owner) {
-        return res.status(404).json({ message: "You don't have an Account" });
-      } else {
-        // Check the Registered User with Hostel Owner Id
-        const existingHostel = await Hostel.findOne({ ownerId });
-        if (existingHostel) {
-          return res.status(400).json({
-            message: `You had already added a Hostel named '${existingHostel.name}'`,
-          });
-        } else {
-          const newHostel = new Hostel({
-            name,
-            category,
-            maxCapacity,
-            totalRooms,
-            rooms,
-            ownerId,
-          });
-          await newHostel.save();
-          res
-            .status(200)
-            .json({ message: "Your Hostel Info Added Successfully" });
-        }
-      }
-    } else {
-      res.status(401).json({ message: "Unauthorized User" });
+    // Validate data
+    validateHostelData(req);
+
+    const owner = await User.findById(ownerId);
+    if (!owner) {
+      return res.status(404).json({ message: "You don't have an Account" });
     }
+
+    // Check if hostel already exists
+    const existingHostel = await Hostel.findOne({ ownerId });
+    if (existingHostel) {
+      return res.status(400).json({
+        message: `You had already added a Hostel named '${existingHostel.name}'`,
+      });
+    }
+
+    // Save new hostel
+    const newHostel = new Hostel({
+      name,
+      category,
+      maxCapacity,
+      totalRooms,
+      rooms,
+      ownerId,
+    });
+    await newHostel.save();
+
+    res.status(200).json({ message: "Your Hostel Info Added Successfully" });
   } catch (err) {
-    res.status(400).json({ message: "Something went wrong" });
+    console.error("JWT Error:", err.message);
+    res.status(400).json({ message: err.message });
   }
 };
 
 // API for Getting Hostel Info
+export const getHostelInfo = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const hostel = await Hostel.findOne({ ownerId: id });
+    if (!hostel) {
+      throw new Error("No Hostel Found");
+    }
+    res.status(200).json(hostel);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+export const updateHostelSpecificInfo = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const { name, category, maxCapacity, totalRooms } = req.body;
+    if (!name || !category || !maxCapacity || !totalRooms) {
+      throw new Error("All fields are required");
+    }
+    const updatedHostel = await Hostel.findOneAndUpdate(
+      { ownerId: id },
+      { name, category, maxCapacity, totalRooms }
+    );
+    if (!updatedHostel) {
+      throw new Error("No Hostel Found to Update");
+    }
+    res.status(200).json({ message: "Hostel Updated Successfully" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+export const deleteHostelInfo = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const hostel = await Hostel.findOneAndDelete({ ownerId: id });
+    if (!hostel) {
+      throw new Error("No Hostel Found to Remove");
+    }
+    res.status(200).json({ message: "Hostel Deleted Successfully" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+export const updateRoomInfo = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const {rooms} = req.body;
+    const hostelInfo = await Hostel.findOne({ ownerId:id });
+    if (!hostelInfo) {
+      throw new Error("No Hostel Found");
+    }
+    res.send({});
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+export const deleteRoomInfo = async (req, res) => {
+  try {
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};

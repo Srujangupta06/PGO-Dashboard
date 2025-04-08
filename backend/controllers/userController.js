@@ -2,9 +2,11 @@ import { User } from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import validator from "validator";
-import {validateUserSignUpData} from "../utils/validation.js";
-const generateToken = (user) => {
-  return jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
+import { validateUserSignUpData } from "../utils/validation.js";
+const generateToken = ({ email }) => {
+  return jwt.sign({ email }, process.env.JWT_SECRET_KEY, {
+    expiresIn: "1d",
+  });
 };
 
 // API for User Registration
@@ -13,7 +15,7 @@ export const userRegistration = async (req, res) => {
 
   try {
     validateUserSignUpData(req);
-    const userStatus = await User.findOne({ mobileNumber });
+    const userStatus = await User.findOne({ email });
     if (userStatus) {
       throw new Error("Already You have an Account. Please Login");
     } else {
@@ -30,10 +32,17 @@ export const userRegistration = async (req, res) => {
           mobileNumber,
         });
         await newUser.save();
-        const token = generateToken(mobileNumber + password);
+        const token = jwt.sign(
+          { id: newUser._id },
+          process.env.JWT_SECRET_KEY,
+          { expiresIn: "7d" }
+        );
+        res.cookie("jwtToken", token, {
+          expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+        });
         res
           .status(200)
-          .json({ message: "User Registered Successfully", jwtToken: token });
+          .json({ message: "Registration Successful", jwtToken: token });
       }
     }
   } catch (err) {
@@ -45,14 +54,14 @@ export const userRegistration = async (req, res) => {
 
 // API for USer Login
 export const userLogin = async (req, res) => {
-  const { mobileNumber, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    if (!mobileNumber || !password) {
+    if (!email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
     // Check if the user exists
-    const userStatus = await User.findOne({ mobileNumber });
+    const userStatus = await User.findOne({ email });
     if (!userStatus) {
       return res.status(404).json({ message: "Invalid Credentials" });
     }
@@ -64,10 +73,13 @@ export const userLogin = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = generateToken(mobileNumber + password);
-    res
-      .status(200)
-      .json({ message: "User logged in successfully", jwtToken: token });
+    const token = jwt.sign({ id: userStatus._id }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "7d",
+    });
+    res.cookie("jwtToken", token, {
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+    });
+    res.status(200).json({ message: "Login Successful", jwtToken: token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -75,17 +87,9 @@ export const userLogin = async (req, res) => {
 
 // API for get User Profile
 export const getUserProfile = async (req, res) => {
-  const { userId } = req.params;
-
   try {
-    const userInfo = await User.findById(userId);
-    const { avatarUrl, name, email, mobileNumber } = userInfo;
-    res.status(200).json({
-      name,
-      email,
-      avatarUrl,
-      mobileNumber,
-    });
+    const { user } = req;
+    res.status(200).json(user);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -93,7 +97,6 @@ export const getUserProfile = async (req, res) => {
 // API for Update User Profile
 export const updateUserProfile = async (req, res) => {
   try {
-    const { userId } = req.params;
     const ALLOWED_FIELDS = ["name", "avatarUrl", "mobileNumber"];
     const { name, avatarUrl, mobileNumber } = req.body;
     const isUserAllowed = Object.keys(req.body).every((key) =>
@@ -104,15 +107,12 @@ export const updateUserProfile = async (req, res) => {
         "Only name, avatarUrl, mobileNumber are allowed to update"
       );
     } else {
-      const userInfo = await User.findByIdAndUpdate(
-        userId,
-        {
-          name,
-          avatarUrl,
-          mobileNumber,
-        },
-        { runValidators: true }
-      );
+      const user = req.user;
+      await User.findByIdAndUpdate(user?.id, {
+        name,
+        avatarUrl,
+        mobileNumber,
+      });
       res.status(200).json({ message: "Profile Updated Successfully" });
     }
   } catch (err) {
@@ -122,9 +122,9 @@ export const updateUserProfile = async (req, res) => {
 
 // API for Delete User
 export const deleteUserProfile = async (req, res) => {
-  const { userId } = req.params;
   try {
-    await User.findByIdAndDelete(userId);
+    const { id } = req?.user;
+    await User.findByIdAndDelete(id);
     res.status(200).json({
       message: "Account Deleted Successfully",
     });
@@ -132,4 +132,3 @@ export const deleteUserProfile = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-

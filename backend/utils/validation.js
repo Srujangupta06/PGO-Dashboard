@@ -1,7 +1,7 @@
 import validator from "validator";
 export const validateUserSignUpData = (req) => {
   const { name, email, password, mobileNumber } = req.body;
-
+  
   if (!name || !email || !password || !mobileNumber) {
     throw new Error("All fields are required");
   } else if (!validator.isEmail(email)) {
