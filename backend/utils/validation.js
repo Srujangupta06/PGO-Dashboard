@@ -1,7 +1,7 @@
 import validator from "validator";
 export const validateUserSignUpData = (req) => {
   const { name, email, password, mobileNumber } = req.body;
-  
+
   if (!name || !email || !password || !mobileNumber) {
     throw new Error("All fields are required");
   } else if (!validator.isEmail(email)) {
@@ -20,4 +20,25 @@ export const validateHostelData = (req) => {
   if (!name || !category || !maxCapacity || !totalRooms || !rooms || !ownerId) {
     throw new Error("All fields are required");
   }
+};
+
+export const validateUserProfileInputData = (req) => {
+  const { name, avatarUrl, mobileNumber } = req.body;
+  const ALLOWED_FIELDS = ["name", "avatarUrl", "mobileNumber"];
+  const isUserAllowed = Object.keys(req.body).every((key) =>
+    ALLOWED_FIELDS.includes(key)
+  );
+  return isUserAllowed;
+};
+
+export const validateRoomInfo = (req) => {
+  const { sharingType, rent, totalBeds, availableBeds } = req.body;
+  const ALLOWED_FIELDS = ["sharingType", "rent", "totalBeds", "availableBeds"];
+  const isEditAllowed = Object.keys(req.body).every((key) =>
+    ALLOWED_FIELDS.includes(key)
+  );
+  if (!sharingType || !rent || !totalBeds || !availableBeds) {
+    throw new Error("All Fields are Required");
+  }
+  return isEditAllowed;
 };
