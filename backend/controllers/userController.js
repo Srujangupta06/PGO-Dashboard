@@ -2,7 +2,10 @@ import { User } from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import validator from "validator";
-import { validateUserSignUpData } from "../utils/validation.js";
+import {
+  validateUserProfileInputData,
+  validateUserSignUpData,
+} from "../utils/validation.js";
 const generateToken = ({ email }) => {
   return jwt.sign({ email }, process.env.JWT_SECRET_KEY, {
     expiresIn: "1d",
@@ -89,7 +92,13 @@ export const userLogin = async (req, res) => {
 export const getUserProfile = async (req, res) => {
   try {
     const { user } = req;
-    res.status(200).json(user);
+    const profileInfo = {
+      name: user.name,
+      email: user.email,
+      mobileNumber: user.mobileNumber,
+      avatarUrl: user.avatarUrl,
+    };
+    res.status(200).json({profileInfo});
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -97,24 +106,18 @@ export const getUserProfile = async (req, res) => {
 // API for Update User Profile
 export const updateUserProfile = async (req, res) => {
   try {
-    const ALLOWED_FIELDS = ["name", "avatarUrl", "mobileNumber"];
-    const { name, avatarUrl, mobileNumber } = req.body;
-    const isUserAllowed = Object.keys(req.body).every((key) =>
-      ALLOWED_FIELDS.includes(key)
-    );
-    if (!isUserAllowed) {
-      throw new Error(
-        "Only name, avatarUrl, mobileNumber are allowed to update"
-      );
-    } else {
-      const user = req.user;
-      await User.findByIdAndUpdate(user?.id, {
-        name,
-        avatarUrl,
-        mobileNumber,
-      });
-      res.status(200).json({ message: "Profile Updated Successfully" });
+    const isEditAllowed = validateUserProfileInputData(req);
+    if (!isEditAllowed) {
+      throw new Error("Only name, avatarUrl and mobileNumber can be updated");
     }
+    const loggedInUser = req.user;
+    Object.keys(req.body).forEach((key) => {
+      loggedInUser[key] = req.body[key];
+    });
+    await loggedInUser.save();
+    res.status(200).json({
+      message: `${loggedInUser.name}, Your Profile has Updated Successfully`,
+    });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
