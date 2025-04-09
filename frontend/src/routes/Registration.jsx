@@ -61,7 +61,7 @@ const Registration = () => {
 
   const registerUser = async (userCredentials) => {
     try {
-      const apiUrl = `${backendUrl}/api/user/registration`;
+      const apiUrl = `${backendUrl}/api/auth/registration`;
 
       const response = await fetch(apiUrl, {
         method: "POST",

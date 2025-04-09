@@ -7,7 +7,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Dashboard from "./routes/Dashboard";
-
+import Profile from "./components/Profile";
 // Lazy loaded components
 const Home = lazy(() => import("./routes/Home"));
 const About = lazy(() => import("./routes/About"));
@@ -54,6 +54,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/view"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />

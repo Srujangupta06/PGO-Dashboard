@@ -4,47 +4,35 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { backendUrl, toastNoficationSettings } from "../utils/utils";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
+import validator from "validator";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [password, setPassword] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const checkFormValidations = () => {
-    let errors = [];
-
-    const mobileRegex = /^\d{10}$/;
-
-    if (!mobileRegex.test(mobileNumber)) {
-      errors.push("Mobile number must be exactly 10 digits.");
-    }
-
-    return errors;
-  };
 
   const onHandleFormSubmit = (e) => {
     e.preventDefault();
-    const errors = checkFormValidations();
-    if (errors.length > 0) {
-      setErrorMessage(errors.join("\n"));
+    // If no errors, proceed with login
+    if (!validator.isEmail(email)) {
+      setErrorMessage("Invalid Email");
       return;
     }
-
-    // If no errors, proceed with login
     const userCredentials = {
-      mobileNumber: mobileNumber,
+      email: email,
       password: password,
     };
     loginUser(userCredentials);
     setErrorMessage("");
-    setMobileNumber("");
+    setEmail("");
     setPassword("");
   };
 
   const loginUser = async (userCredentials) => {
     try {
-      const apiUrl = `${backendUrl}/api/user/login`;
+      const apiUrl = `${backendUrl}/api/auth/login`;
 
       const response = await fetch(apiUrl, {
         method: "POST",
@@ -82,20 +70,18 @@ const Login = () => {
           onSubmit={onHandleFormSubmit}
         >
           <div className="mb-6">
-            <label htmlFor="contact-number" className="block mb-2 font-medium">
-              Mobile Number
+            <label htmlFor="email" className="block mb-2 font-medium">
+              Email
             </label>
             <input
-              id="contact-number"
+              id="email"
               required
-              maxLength={10}
-              type="tel"
-              value={mobileNumber}
+              type="email"
+              value={email}
               onChange={(e) => {
-                setMobileNumber(e.target.value);
-              
+                setEmail(e.target.value);
               }}
-              placeholder="Enter your Mobile Number"
+              placeholder="Enter your Email"
               className="w-full border-b-2 border-gray-300 focus:border-blue-500 outline-none py-1.5 px-1 transition-all duration-200"
             />
           </div>
@@ -111,7 +97,6 @@ const Login = () => {
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
-                 
                 }}
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your Password"
@@ -144,7 +129,9 @@ const Login = () => {
               Don't have an Account?
             </span>
             <Link to="/auth/register">
-              <span className="text-blue-500 text-sm underline">Register Here</span>
+              <span className="text-blue-500 text-sm underline">
+                Register Here
+              </span>
             </Link>
             {/* <Link to="/register">
               <span className="text-blue-500 text-sm">Forgot Password</span>

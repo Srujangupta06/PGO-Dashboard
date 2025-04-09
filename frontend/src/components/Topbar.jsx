@@ -1,20 +1,19 @@
-import React from "react";
 import { FaBell, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 const Topbar = () => {
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
-    navigate("/profile");
+    navigate("/profile/view");
   };
 
   const handleLogout = () => {
-    // localStorage.removeItem("token");
-    console.log("clicked to login");
-    navigate("/auth/login", { replace: true });
+    Cookies.remove("jwtToken");
+    navigate("/");
+    toast.success("Logout Successful");
   };
-
   return (
     <div className="h-16 z-10 flex w-full justify-between items-center bg-white p-4 shadow-md">
       {/* Welcome Message */}
