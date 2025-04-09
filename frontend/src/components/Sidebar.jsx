@@ -18,8 +18,8 @@ import Topbar from "./Topbar";
 
 const sections = [
   { id: "admin", title: "Dashboard", icon: <FaUser /> },
-  { id: "hostel", title: "Hostel Info", icon: <FaBed /> },
-  { id: "students", title: "Tenant Info", icon: <FaUsers /> },
+  { id: "hostel", title: "Hostel Management", icon: <FaBed /> },
+  { id: "students", title: "Tenant Management", icon: <FaUsers /> },
   { id: "fees", title: "Payments", icon: <FaMoneyBill /> },
   { id: "mess", title: "Mess", icon: <FaUtensils /> },
   { id: "maintenance", title: "Maintenance", icon: <FaTools /> },
