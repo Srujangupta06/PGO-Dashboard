@@ -1,3 +1,4 @@
+import { Hostel } from "../models/hostelModel.js";
 import validator from "validator";
 export const validateUserSignUpData = (req) => {
   const { name, email, password, mobileNumber } = req.body;
@@ -41,4 +42,12 @@ export const validateRoomInfo = (req) => {
     throw new Error("All Fields are Required");
   }
   return isEditAllowed;
+};
+
+export const validateHostelWithOwnerId = async (ownerId) => {
+  const hostelInfo = await Hostel.findOne({ ownerId });
+  if (!hostelInfo) {
+    throw new Error("No Hostel Found");
+  }
+  return hostelInfo;
 };

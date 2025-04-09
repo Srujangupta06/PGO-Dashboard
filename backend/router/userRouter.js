@@ -3,21 +3,15 @@ import {
   deleteUserProfile,
   getUserProfile,
   updateUserProfile,
-  userLogin,
-  userRegistration,
 } from "../controllers/userController.js";
 import { auth } from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/registration", userRegistration);
+router.get("/view-profile", auth, getUserProfile);
 
-router.post("/login", userLogin);
+router.patch("/edit-profile", auth, updateUserProfile);
 
-router.get("/get-user-profile", auth, getUserProfile);
-
-router.patch("/update-user-profile", auth, updateUserProfile);
-
-router.delete("/delete-account", auth, deleteUserProfile);
+router.delete("/delete-profile", auth, deleteUserProfile);
 
 export default router;

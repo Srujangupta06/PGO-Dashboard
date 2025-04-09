@@ -5,9 +5,10 @@ import mongoose from "mongoose";
 
 import cors from "cors";
 import userRoutes from "./router/userRouter.js";
-import customerReviewRoutes from "./router/customerReviewRouter.js";
 import hostelRoutes from "./router/hostelRouter.js";
 import cookieParser from "cookie-parser";
+import roomRoutes from "./router/roomRouter.js";
+import authRoutes from "./router/auth.js";
 
 const app = express();
 app.use(express.json());
@@ -21,12 +22,13 @@ app.use(
 );
 const PORT = process.env.PORT || 5000;
 
+app.use("/api/auth", authRoutes);
+
 app.use("/api/user", userRoutes);
 
-app.use("/api/user", customerReviewRoutes);
+app.use("/api/hostel", hostelRoutes);
 
-app.use("/api/hostel/", hostelRoutes);
-
+app.use("/api/hostel/room", roomRoutes);
 const initializeDBAndServer = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
