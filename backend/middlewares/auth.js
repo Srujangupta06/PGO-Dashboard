@@ -5,7 +5,7 @@ export const auth = async (req, res, next) => {
   try {
     const cookie = req.cookies;
     const { jwtToken } = cookie;
-    
+  
     // if token is not present then return Unauthorized
     if (!jwtToken) {
       throw new Error("Unauthorized User");
