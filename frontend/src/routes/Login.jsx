@@ -44,7 +44,7 @@ const Login = () => {
       if (response.ok) {
         const data = await response.json();
         const { message, jwtToken } = data;
-        Cookies.set("jwtToken", jwtToken, { expires: 7 });
+        Cookies.set("jwtToken", jwtToken, { expires: 0.25 }); // Expires in 6 hours
         toast.success(message, toastNoficationSettings);
         navigate("/dashboard");
       } else {

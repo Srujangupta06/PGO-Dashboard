@@ -74,7 +74,7 @@ const Registration = () => {
         const data = await response.json();
         const { message, jwtToken } = data;
         toast.success(message, toastNoficationSettings);
-        Cookies.set("jwtToken", jwtToken, { expires: 7 });
+        Cookies.set("jwtToken", jwtToken,{ expires: 0.25 }); // Expires in 6 hours
         navigate("/dashboard");
       } else {
         const data = await response.json();

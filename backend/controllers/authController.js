@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 
 import { validateUserSignUpData } from "../utils/validation.js";
 
-
 // API for User Registration
 export const userRegistration = async (req, res) => {
   const { name, email, password, mobileNumber } = req.body;
@@ -32,10 +31,10 @@ export const userRegistration = async (req, res) => {
         const token = jwt.sign(
           { id: newUser._id },
           process.env.JWT_SECRET_KEY,
-          { expiresIn: "7d" }
+          { expiresIn: "6h" }
         );
         res.cookie("jwtToken", token, {
-          expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+          expires: "6h",
         });
         res
           .status(200)
@@ -71,7 +70,7 @@ export const userLogin = async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign({ id: userStatus._id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: "7d",
+      expiresIn: "6h",
     });
     res.cookie("jwtToken", token, {
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
@@ -82,6 +81,5 @@ export const userLogin = async (req, res) => {
   }
 };
 
-
 // API for User Logout
-export const userLogoout = async(req,res)=>{}
+export const userLogoout = async (req, res) => {};
