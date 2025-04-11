@@ -8,6 +8,6 @@ authRouter.post('/register',userRegistration)
 
 authRouter.post('/login',userLogin)
 
-authRouter.post('/logout',auth,userLogoout);
+// authRouter.post('/logout',auth,userLogoout);
 
 export default authRouter;
