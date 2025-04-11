@@ -17,8 +17,8 @@ export const validateUserSignUpData = (req) => {
 };
 
 export const validateHostelData = (req) => {
-  const { name, category, maxCapacity, totalRooms, rooms } = req.body;
-  if (!name || !category || !maxCapacity || !totalRooms || !rooms) {
+  const { name, category, maxCapacity, totalRooms } = req.body;
+  if (!name || !category || !maxCapacity || !totalRooms) {
     throw new Error("All fields are required");
   }
 };
@@ -49,5 +49,6 @@ export const validateHostelWithOwnerId = async (ownerId) => {
   if (!hostelInfo) {
     throw new Error("No Hostel Found");
   }
+  
   return hostelInfo;
 };

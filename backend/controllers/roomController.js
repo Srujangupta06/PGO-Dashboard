@@ -21,27 +21,41 @@ export const addRoomInfo = async (req, res) => {
     if (!roomNumber || !sharingType || !rent || !totalBeds || !availableBeds) {
       throw new Error("All Fields are Required");
     }
-    await validateHostelWithOwnerId(id);
+    // console.log(req.body);
+    const hostelInfo = await validateHostelWithOwnerId(id);
     // Check the room Number status if present no need to add the room
+
     const existingRoom = hostelInfo.rooms.find(
       (roomInfo) => roomInfo.roomNumber == roomNumber
     );
+
     if (existingRoom) {
-      throw new Error("Room Number Already Exists");
+      return res.status(403).json({
+        message: `Room Number with ${existingRoom.roomNumber} Already Exists`,
+      });
+    } else {
+      // Check the beds properly
+      if (availableBeds > totalBeds) {
+        return res
+          .status(400)
+          .json({
+            message: "Available Beds cannot be greater than Total Beds",
+          });
+      }
+      
+      hostelInfo?.rooms.push({
+        roomNumber,
+        sharingType,
+        rent,
+        totalBeds,
+        availableBeds,
+      });
+      await hostelInfo.save();
+      res.status(200).json({
+        message: "Room Added Successfully",
+        roomInfo: { roomNumber, sharingType, rent, totalBeds, availableBeds },
+      });
     }
-    // Check the beds properly
-    if (availableBeds > totalBeds) {
-      throw new Error("Available Beds cannot be greater than Total Beds");
-    }
-    hostelInfo?.rooms.push({
-      roomNumber,
-      sharingType,
-      rent,
-      totalBeds,
-      availableBeds,
-    });
-    await hostelInfo.save();
-    res.status(200).json({ message: "Room Added Successfully" });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -56,7 +70,7 @@ export const updateRoomInfo = async (req, res) => {
       );
     }
     const { id } = req.user;
-    await validateHostelWithOwnerId(id);
+    const hostelInfo = await validateHostelWithOwnerId(id);
     const { roomId } = req.params;
     const room = hostelInfo.rooms.find(
       (roomInfo) => roomInfo.roomNumber == roomId
@@ -79,7 +93,7 @@ export const updateRoomInfo = async (req, res) => {
 export const deleteRoomInfo = async (req, res) => {
   try {
     const { id } = req.user;
-    await validateHostelWithOwnerId(id);
+    const hostelInfo = await validateHostelWithOwnerId(id);
     const { roomId } = req.params;
     const room = hostelInfo.rooms.find(
       (roomInfo) => roomInfo.roomNumber == roomId
