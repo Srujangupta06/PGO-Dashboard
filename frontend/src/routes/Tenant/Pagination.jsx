@@ -15,7 +15,7 @@ const Pagination = ({
   onItemsPerPageChange,
 }) => {
   return (
-    <div className="px-6 py-3 flex items-center justify-between border-t border-gray-200">
+    <div className="px-6 py-3 flex items-center justify-between border-t border-gray-200 cursor-pointer">
       <div className="flex items-center">
         <span className="text-sm text-gray-700">Items per page: </span>
         <select
@@ -38,7 +38,7 @@ const Pagination = ({
               : "text-gray-500 hover:bg-gray-100"
           }`}
         >
-          <ChevronDoubleLeftIcon className="h-5 w-5" />
+          <ChevronDoubleLeftIcon className="h-5 w-5 cursor-pointer" />
         </button>
         <button
           onClick={() => onPageChange(currentPage - 1)}
@@ -49,7 +49,7 @@ const Pagination = ({
               : "text-gray-500 hover:bg-gray-100"
           }`}
         >
-          <ChevronLeftIcon className="h-5 w-5" />
+          <ChevronLeftIcon className="h-5 w-5 cursor-pointer" />
         </button>
         <span className="px-3 py-1 bg-red-600 text-white rounded-md">
           {currentPage}
@@ -63,7 +63,7 @@ const Pagination = ({
               : "text-gray-500 hover:bg-gray-100"
           }`}
         >
-          <ChevronRightIcon className="h-5 w-5" />
+          <ChevronRightIcon className="h-5 w-5 cursor-pointer" />
         </button>
         <button
           onClick={() => onPageChange(totalPages)}
@@ -74,7 +74,7 @@ const Pagination = ({
               : "text-gray-500 hover:bg-gray-100"
           }`}
         >
-          <ChevronDoubleRightIcon className="h-5 w-5" />
+          <ChevronDoubleRightIcon className="h-5 w-5 cursor-pointer" />
         </button>
       </div>
     </div>

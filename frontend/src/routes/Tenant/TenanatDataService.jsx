@@ -1,16 +1,16 @@
-// tenantDataService.js
 export const fetchTenants = async () => {
   try {
     // In a real app, this would be an API call
     // Simulated API response
-    const data = [
+    return [
       {
         id: 1,
         name: "John Doe",
         roomNumber: "101",
         status: "Active",
         joinDate: "2025-01-15",
-        rentAmount: 5000,
+        rentAmount: "5000",
+        contact: "9876543210"
       },
       {
         id: 2,
@@ -18,42 +18,37 @@ export const fetchTenants = async () => {
         roomNumber: "102",
         status: "Active",
         joinDate: "2025-02-10",
-        rentAmount: 5500,
+        rentAmount: "5500",
+        contact: "9876543211"
       },
       {
         id: 3,
-        name: "Mike Johnson",
+        name: "Robert Johnson",
         roomNumber: "103",
         status: "Inactive",
-        joinDate: "2025-01-05",
-        rentAmount: 4800,
+        joinDate: "2024-12-05",
+        rentAmount: "4800",
+        contact: "9876543212"
       },
       {
         id: 4,
-        name: "Sarah Williams",
-        roomNumber: "104",
+        name: "Smith",
+        roomNumber: "102",
         status: "Active",
-        joinDate: "2025-03-01",
-        rentAmount: 6000,
+        joinDate: "2025-02-10",
+        rentAmount: "5500",
+        contact: "9876543211"
       },
       {
         id: 5,
-        name: "David Lee",
-        roomNumber: "105",
-        status: "Active",
-        joinDate: "2025-02-20",
-        rentAmount: 5200,
-      },
-      {
-        id: 6,
-        name: "Mahi Lee",
-        roomNumber: "106",
-        status: "Active",
-        joinDate: "2025-02-20",
-        rentAmount: 5200,
+        name: "Johnson",
+        roomNumber: "103",
+        status: "Inactive",
+        joinDate: "2024-12-05",
+        rentAmount: "4800",
+        contact: "9876543212"
       },
     ];
-    return data;
   } catch (error) {
     console.error("Error fetching tenants:", error);
     throw error;
@@ -95,6 +90,18 @@ export const deleteTenant = async (id) => {
     return { success: true };
   } catch (error) {
     console.error("Error deleting tenant:", error);
+    throw error;
+  }
+};
+
+export const getTenantById = async (id) => {
+  try {
+    // In a real app, this would be an API call
+    // For simulation, we'll return a hardcoded tenant
+    const tenants = await fetchTenants();
+    return tenants.find(tenant => tenant.id === id) || null;
+  } catch (error) {
+    console.error("Error getting tenant:", error);
     throw error;
   }
 };

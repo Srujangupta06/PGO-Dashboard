@@ -38,7 +38,7 @@ const TenantFilters = ({ onFilterChange }) => {
   return (
     <div className="relative">
       <button
-        className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg flex items-center space-x-2 hover:bg-gray-200"
+        className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg cursor-pointer flex items-center space-x-2 hover:bg-gray-200"
         onClick={() => setShowFilters(!showFilters)}
       >
         <FunnelIcon className="h-5 w-5" />
