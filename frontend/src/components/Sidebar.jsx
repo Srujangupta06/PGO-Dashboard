@@ -10,7 +10,7 @@ import {
 
 import InnerDashboard from "../routes/InnerDashboard";
 import HostelInfo from "../routes/HostelInfo";
-import TenantManagement from "../routes/TenantManagement";
+import TenantManagement from "../routes/Tenant/TenantManagement";
 import Fees from "../routes/Fees";
 import MessDetails from "../routes/MessDetails";
 import Maintenance from "../routes/Maintenance";
