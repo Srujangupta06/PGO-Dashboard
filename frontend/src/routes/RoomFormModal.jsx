@@ -30,6 +30,7 @@ const RoomFormModal = ({
         {/* Modal Panel */}
         <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            {/* Header */}
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold text-gray-800">
                 {editRoomId !== null ? "Edit Room" : "Add Room"}
@@ -44,6 +45,7 @@ const RoomFormModal = ({
               </button>
             </div>
 
+            {/* Form Inputs */}
             <div className="gap-4 flex-wrap flex flex-col justify-center">
               <div className="flex flex-col gap-2">
                 <label className="font-semibold">Room Number</label>

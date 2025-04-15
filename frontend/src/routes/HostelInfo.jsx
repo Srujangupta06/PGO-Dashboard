@@ -76,6 +76,9 @@ const HostelInfo = () => {
     localStorage.setItem("rooms", JSON.stringify(rooms));
   }, [rooms]);
 
+  const [pageNumber, setPageNumber] = useState(1);
+  const roomsPerPage = 10;
+
   const handleHostelSubmit = async (method, url, hostelData) => {
     try {
       setLoading(true);
@@ -261,9 +264,6 @@ const HostelInfo = () => {
     (pageNumber - 1) * roomsPerPage,
     pageNumber * roomsPerPage
   );
-
-  const [pageNumber, setPageNumber] = useState(1);
-  const roomsPerPage = 10;
 
   return (
     <div>

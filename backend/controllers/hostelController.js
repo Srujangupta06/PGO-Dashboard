@@ -6,12 +6,16 @@ import { validateHostelData } from "../utils/validation.js";
 
 // API for Adding a Hostel
 export const addHostelInfo = async (req, res) => {
-  const { name, category, maxCapacity, totalRooms, rooms, ownerId } = req.body;
+  const { name, category, maxCapacity, totalRooms, rooms } = req.body;
+  const { user } = req;
 
   try {
     // Validate data
     validateHostelData(req);
-
+    const ownerId = user._id;
+    if (!ownerId) {
+      return res.status(404).json({ message: "You Need to Login First" });
+    }
     const owner = await User.findById(ownerId);
     if (!owner) {
       return res.status(404).json({ message: "You don't have an Account" });
@@ -94,4 +98,3 @@ export const deleteHostelInfo = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-

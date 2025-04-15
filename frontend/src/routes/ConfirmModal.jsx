@@ -1,4 +1,5 @@
 import React from "react";
+
 const ConfirmModal = ({ confirmType, confirmDelete, setShowConfirmModal }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-opacity-50 z-50">

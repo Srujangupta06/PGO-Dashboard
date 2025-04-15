@@ -17,8 +17,8 @@ export const validateUserSignUpData = (req) => {
 };
 
 export const validateHostelData = (req) => {
-  const { name, category, maxCapacity, totalRooms, rooms, ownerId } = req.body;
-  if (!name || !category || !maxCapacity || !totalRooms || !rooms || !ownerId) {
+  const { name, category, maxCapacity, totalRooms } = req.body;
+  if (!name || !category || !maxCapacity || !totalRooms) {
     throw new Error("All fields are required");
   }
 };
