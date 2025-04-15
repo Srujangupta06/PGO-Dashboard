@@ -9,7 +9,7 @@ export const roomSchema = new mongoose.Schema({
     type: Number,
     required: true,
     validate: function (value) {
-      return value < this.totalBeds;
+      return value <= this.totalBeds;
     },
     message: "Available Beds cannot be greater than Total Beds",
   },
