@@ -1,6 +1,5 @@
 import express from 'express';
-import { userLogin, userLogoout, userRegistration } from '../controllers/authController.js';
-import {auth} from '../middlewares/auth.js';
+import { userLogin, userRegistration } from '../controllers/authController.js';
 const authRouter = express.Router();
 
 
@@ -8,6 +7,6 @@ authRouter.post('/register',userRegistration)
 
 authRouter.post('/login',userLogin)
 
-// authRouter.post('/logout',auth,userLogoout);
+// authRouter.post('/logout',auth,userLogout);
 
 export default authRouter;
