@@ -63,7 +63,6 @@ const HostelForm = ({
                 </button>
               </div>
             </div>
-
             <label>Hostel Name</label>
             <input
               type="text"

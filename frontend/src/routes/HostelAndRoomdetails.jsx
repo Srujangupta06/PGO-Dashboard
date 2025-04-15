@@ -121,7 +121,6 @@ const HostelAndRoomDetails = ({
           ))}
         </tbody>
       </table>
-
       {rooms.length === 0 && (
         <p className="text-center text-gray-700 mt-2">
           No rooms available. Add a new room to get started.
