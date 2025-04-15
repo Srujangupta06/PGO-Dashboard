@@ -549,7 +549,7 @@ const TenantManagement = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      className="hadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       required
                     />
                   </div>

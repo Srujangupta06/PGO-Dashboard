@@ -49,5 +49,6 @@ export const validateHostelWithOwnerId = async (ownerId) => {
   if (!hostelInfo) {
     throw new Error("No Hostel Found");
   }
+  
   return hostelInfo;
 };
