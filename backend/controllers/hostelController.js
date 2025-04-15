@@ -8,12 +8,11 @@ import { validateHostelData } from "../utils/validation.js";
 export const addHostelInfo = async (req, res) => {
   const { name, category, maxCapacity, totalRooms, rooms } = req.body;
   const { user } = req;
-  
+
   try {
     // Validate data
     validateHostelData(req);
-    const ownerId = user.id;
-    console.log(ownerId);
+    const ownerId = user._id;
     if (!ownerId) {
       return res.status(404).json({ message: "You Need to Login First" });
     }
