@@ -1,12 +1,11 @@
-import express from 'express';
-import { userLogin, userLogoout, userRegistration } from '../controllers/authController.js';
-import {auth} from '../middlewares/auth.js';
+import express from "express";
+import { userLogin, userRegistration } from "../controllers/authController.js";
+import { auth } from "../middlewares/auth.js";
 const authRouter = express.Router();
 
+authRouter.post("/register", userRegistration);
 
-authRouter.post('/register',userRegistration)
-
-authRouter.post('/login',userLogin)
+authRouter.post("/login", userLogin);
 
 // authRouter.post('/logout',auth,userLogoout);
 

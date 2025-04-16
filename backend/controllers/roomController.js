@@ -18,7 +18,18 @@ export const addRoomInfo = async (req, res) => {
     const { id } = req.user;
     const { roomNumber, sharingType, rent, totalBeds, availableBeds } =
       req.body;
-    if (!roomNumber || !sharingType || !rent || !totalBeds || !availableBeds) {
+    if (
+      roomNumber === undefined ||
+      roomNumber === null ||
+      sharingType === undefined ||
+      sharingType === null ||
+      rent === undefined ||
+      rent === null ||
+      totalBeds === undefined ||
+      totalBeds === null ||
+      availableBeds === undefined ||
+      availableBeds === null
+    ) {
       throw new Error("All Fields are Required");
     }
     // console.log(req.body);
@@ -36,13 +47,11 @@ export const addRoomInfo = async (req, res) => {
     } else {
       // Check the beds properly
       if (availableBeds > totalBeds) {
-        return res
-          .status(400)
-          .json({
-            message: "Available Beds cannot be greater than Total Beds",
-          });
+        return res.status(400).json({
+          message: "Available Beds cannot be greater than Total Beds",
+        });
       }
-      
+
       hostelInfo?.rooms.push({
         roomNumber,
         sharingType,
@@ -84,7 +93,7 @@ export const updateRoomInfo = async (req, res) => {
     room.totalBeds = totalBeds;
     room.availableBeds = availableBeds;
     await hostelInfo.save();
-    res.send("Room Updated Successfully");
+    res.status(200).json({ message: "Room Updated Successfully" });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

@@ -38,7 +38,16 @@ export const validateRoomInfo = (req) => {
   const isEditAllowed = Object.keys(req.body).every((key) =>
     ALLOWED_FIELDS.includes(key)
   );
-  if (!sharingType || !rent || !totalBeds || !availableBeds) {
+  if (
+    sharingType === undefined ||
+    sharingType === null ||
+    rent === undefined ||
+    rent === null ||
+    totalBeds === undefined ||
+    totalBeds === null ||
+    availableBeds === undefined ||
+    availableBeds === null
+  ) {
     throw new Error("All Fields are Required");
   }
   return isEditAllowed;
@@ -49,6 +58,6 @@ export const validateHostelWithOwnerId = async (ownerId) => {
   if (!hostelInfo) {
     throw new Error("No Hostel Found");
   }
-  
+
   return hostelInfo;
 };

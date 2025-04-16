@@ -81,7 +81,7 @@ export const userLogin = async (req, res) => {
   }
 };
 
-// // API for User Logout
+// API for User Logout
 // export const userLogoout = async (req, res) => {
 //   try {
 //     res.clearCookie("jwtToken");

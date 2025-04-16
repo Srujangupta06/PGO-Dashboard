@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export const roomSchema = new mongoose.Schema({
-  roomNumber: { type: Number, required: true},
+  roomNumber: { type: Number, required: true },
   sharingType: { type: String, required: true },
   rent: { type: Number, required: true },
   totalBeds: { type: Number, required: true },
@@ -9,7 +9,7 @@ export const roomSchema = new mongoose.Schema({
     type: Number,
     required: true,
     validate: function (value) {
-      return value < this.totalBeds;
+      return value <= this.totalBeds;
     },
     message: "Available Beds cannot be greater than Total Beds",
   },
