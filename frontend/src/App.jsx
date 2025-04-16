@@ -20,7 +20,7 @@ const App = () => {
     <>
       <ScrollToTop />
       <ToastContainer />
-      <Suspense fallback={<div className="text-center mt-10">Loading...</div>}>
+      <Suspense>
         <Routes>
           {/* Auth routes */}
           <Route path="/auth/login" element={<Login />} />

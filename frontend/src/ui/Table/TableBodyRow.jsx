@@ -1,7 +1,7 @@
 import { AiFillDelete } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 const TableBodyRow = ({ roomInfo, index }) => {
-  const { roomNumber, sharingType } = roomInfo;
+  const { roomNumber, sharingType, totalBeds, availableBeds } = roomInfo;
 
   return (
     <tr className="group relative hover:bg-blue-50 transition-colors even:bg-gray-50 cursor-pointer">
@@ -20,14 +20,22 @@ const TableBodyRow = ({ roomInfo, index }) => {
           ? "3"
           : 4}
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{2}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+        {availableBeds}
+      </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-green-700 font-medium">
         ₹6500
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-        <span className="bg-green-100 text-green-800 px-1.5 py-1 rounded-sm">
-          Available
-        </span>
+        {availableBeds > 0 ? (
+          <span className="bg-green-100 text-green-800 px-1.5 py-1 rounded-sm">
+            Available
+          </span>
+        ) : (
+          <span className="bg-red-100 text-red-800 px-1.5 py-1 rounded-sm">
+            Occupied
+          </span>
+        )}
       </td>
 
       {/* 🧊 Floating buttons */}

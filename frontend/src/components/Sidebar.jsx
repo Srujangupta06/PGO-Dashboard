@@ -84,7 +84,7 @@ export default function Sidebar() {
         </div>
 
         {/* Content Area */}
-        <div className="h-full w-full overflow-x-auto overflow-y-auto p-6 border border-gray-300 rounded-lg pt-20">
+        <div className="h-full w-full overflow-x-auto overflow-y-auto  border border-gray-300 rounded-sm pt-15">
           {renderContent()}
         </div>
       </main>

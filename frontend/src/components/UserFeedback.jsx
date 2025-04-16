@@ -40,26 +40,26 @@ const UserFeedback = () => {
     ],
   };
 
-  const fetchCustomerFeedback = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/user/customer-reviews"
-      );
-      if (response.ok) {
-        const data = await response.json();
-        const popularFeedback = data.filter((feedback) => feedback.rating > 4);
-        setCustomerFeedback(popularFeedback);
-      } else {
-        console.log("error");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const fetchCustomerFeedback = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       "http://localhost:5000/api/user/customer-reviews"
+  //     );
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       const popularFeedback = data.filter((feedback) => feedback.rating > 4);
+  //       setCustomerFeedback(popularFeedback);
+  //     } else {
+  //       console.log("error");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchCustomerFeedback();
-  }, []);
+  // useEffect(() => {
+  //   fetchCustomerFeedback();
+  // }, []);
 
   return (
     <section className="w-full flex flex-col items-center mb-6 sm:mb-12  sm:py-0 justify-between px-6 sm:px-10 md:px-32 ">
@@ -70,7 +70,7 @@ const UserFeedback = () => {
       <div className="w-full overflow-hidden mt-2 md:mt-4">
         <Slider {...customerFeedbackSliderSettings}>
           {customerFeedback.map((feedback) => (
-            <UserFeedbackCard key={feedback._id} feedback={feedback} />
+            <UserFeedbackCard key={feedback._id} />
           ))}
         </Slider>
       </div>
