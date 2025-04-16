@@ -34,7 +34,7 @@ export const userRegistration = async (req, res) => {
           { expiresIn: "6h" }
         );
         res.cookie("jwtToken", token, {
-          expires: "6h",
+          expires: new Date(Date.now() + 1000 * 60 * 60 * 6),
         });
         res
           .status(200)
@@ -73,7 +73,7 @@ export const userLogin = async (req, res) => {
       expiresIn: "6h",
     });
     res.cookie("jwtToken", token, {
-      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 6),
     });
     res.status(200).json({ message: "Login Successful", jwtToken: token });
   } catch (error) {
