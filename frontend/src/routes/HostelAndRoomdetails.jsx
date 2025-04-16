@@ -95,23 +95,23 @@ const HostelAndRoomDetails = ({
               <td className="p-4 text-center font-bold">
                 <p
                   className={`px-2 py-1 inline-flex text-xs font-semibold rounded-full ${
-                    room.status === "Available"
+                    room.availableBeds > 0
                       ? "bg-green-200 text-green-800"
                       : "bg-gray-200 text-gray-800"
                   }`}
                 >
-                  {room.status}
+                  {room.availableBeds > 0 ? "Available" : "Occupied"}
                 </p>
               </td>
               <td className="p-4 flex justify-center items-center gap-2">
                 <button
-                  onClick={() => editRoom(index)}
+                  onClick={() => editRoom(room.number)}
                   className="text-gray-600"
                 >
                   <FaPencilAlt size={18} />
                 </button>
                 <button
-                  onClick={() => handleDeleteRoomClick(index)}
+                  onClick={() => handleDeleteRoomClick(room.number)}
                   className="text-gray-600"
                 >
                   <FaTrash size={18} />

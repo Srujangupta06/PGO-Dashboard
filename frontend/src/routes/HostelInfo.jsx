@@ -10,11 +10,12 @@ const HostelInfo = () => {
   const getHostelUrl = `${backendUrl}/api/hostel/view`;
   const confirmEditUrl = `${backendUrl}/api/hostel/edit`;
   const confirmDeleteUrl = `${backendUrl}/api/hostel/remove`;
+  const getRoomsUrl = `${backendUrl}/api/hostel/room/get`;
+  const addRoomUrl = `${backendUrl}/api/hostel/room/add`;
+  const editRoomUrl = `${backendUrl}/api/hostel/room/edit/`;
+  const deleteRoomUrl = `${backendUrl}/api/hostel/room/remove/`;
   const [hostel, setHostel] = useState(null);
-  const [rooms, setRooms] = useState(() => {
-    const savedRooms = localStorage.getItem("rooms");
-    return savedRooms ? JSON.parse(savedRooms) : [];
-  });
+  const [rooms, setRooms] = useState([]);
   const [showAddHostelFormModal, setShowAddHostelFormModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isEditingHostel, setIsEditingHostel] = useState(false);
@@ -31,11 +32,50 @@ const HostelInfo = () => {
   const [showRoomFormModal, setShowRoomFormModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [confirmType, setConfirmType] = useState(null);
-  const [roomIndexToDelete, setRoomIndexToDelete] = useState(null);
+  const [roomNumberToDelete, setRoomNumberToDelete] = useState(null);
   const [hostelName, setHostelName] = useState("");
   const [hostelCategory, setHostelCategory] = useState("men");
   const [totalRooms, setTotalRooms] = useState("");
   const [maxCapacity, setMaxCapacity] = useState("");
+
+  const mapBackendRoomToFrontend = (room) => ({
+    number: room.roomNumber,
+    type: room.sharingType,
+    beds: room.totalBeds,
+    availableBeds: room.availableBeds,
+    rent: room.rent,
+  });
+
+  const mapFrontendRoomToBackend = (room) => {
+    return {
+      roomNumber: room.number,
+      sharingType: room.type,
+      totalBeds: parseInt(room.beds, 10),
+      availableBeds: parseInt(room.availableBeds, 10),
+      rent: parseInt(room.rent, 10),
+    };
+  };
+
+  const fetchRooms = async () => {
+    try {
+      const response = await fetch(getRoomsUrl, {
+        method: "GET",
+        credentials: "include",
+      });
+      if (response.ok) {
+        const data = await response.json();
+        if (data) {
+          const convertedRooms = data.map(mapBackendRoomToFrontend);
+          setRooms(convertedRooms);
+        } else {
+          setRooms([]);
+        }
+      }
+    } catch (error) {
+      toast.error("Failed to fetch rooms data from server.");
+    }
+  };
+
   const fetchHostel = async () => {
     try {
       setLoading(true);
@@ -52,8 +92,7 @@ const HostelInfo = () => {
         }
       }
     } catch (error) {
-      console.error("Error fetching hostel:", error);
-      alert("Failed to fetch hostel data from server.");
+      toast.error("Failed to fetch hostel data from server.");
     } finally {
       setLoading(false);
     }
@@ -61,6 +100,7 @@ const HostelInfo = () => {
 
   useEffect(() => {
     fetchHostel();
+    fetchRooms();
   }, []);
 
   useEffect(() => {
@@ -71,10 +111,6 @@ const HostelInfo = () => {
       setMaxCapacity(hostel.maxCapacity || "");
     }
   }, [hostel, isEditingHostel]);
-
-  useEffect(() => {
-    localStorage.setItem("rooms", JSON.stringify(rooms));
-  }, [rooms]);
 
   const [pageNumber, setPageNumber] = useState(1);
   const roomsPerPage = 10;
@@ -152,6 +188,7 @@ const HostelInfo = () => {
           break;
         default:
           beds = "";
+          break;
       }
       setNewRoom({ ...newRoom, type: value, beds, availableBeds: beds });
     } else {
@@ -166,15 +203,41 @@ const HostelInfo = () => {
     }
   };
 
-  const addRoom = () => {
-    const existroom = rooms.some(
-      (room, i) => room.number === newRoom.number && i !== editRoomId
-    );
-    if (existroom) {
-      setError("Room number already exists.");
-      return;
+  const handleRoomSubmit = async (roomInfo, isEdit = false, roomID = null) => {
+    try {
+      const url = isEdit ? `${editRoomUrl}${roomID}` : addRoomUrl;
+      const method = isEdit ? "PATCH" : "POST";
+      const response = await fetch(url, {
+        method,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(roomInfo),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        toast.success(data.message);
+        fetchRooms();
+        setNewRoom({
+          number: "",
+          type: "",
+          beds: "",
+          availableBeds: "",
+          rent: "",
+          status: "Available",
+        });
+        setShowRoomFormModal(false);
+        setError("");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Failed to save room");
     }
+  };
 
+  const addRoom = () => {
     const updatedRoom = {
       ...newRoom,
       status: parseInt(newRoom.availableBeds) === 0 ? "Occupied" : "Available",
@@ -190,13 +253,21 @@ const HostelInfo = () => {
       return;
     }
 
+    const backendRoom = mapFrontendRoomToBackend(updatedRoom);
+
     if (editRoomId !== null) {
-      setRooms(
-        rooms.map((room, index) => (index === editRoomId ? updatedRoom : room))
-      );
+      const editableFields = {
+        sharingType: backendRoom.sharingType,
+        rent: backendRoom.rent,
+        totalBeds: backendRoom.totalBeds,
+        availableBeds: backendRoom.availableBeds,
+      };
+      const editableFieldID = String(rooms[editRoomId].number);
+      handleRoomSubmit(editableFields, true, editableFieldID);
       setEditRoomId(null);
     } else {
-      setRooms([...rooms, updatedRoom]);
+      console.log("Sending Room Data:", backendRoom);
+      handleRoomSubmit(backendRoom);
     }
 
     setNewRoom({ number: "", type: "", beds: "", availableBeds: "", rent: "" });
@@ -221,6 +292,11 @@ const HostelInfo = () => {
       if (response.ok) {
         toast.success(data.message);
         setHostel(null);
+        setRooms([]);
+        setHostelName(null);
+        setHostelCategory("men");
+        setTotalRooms(null);
+        setMaxCapacity(null);
       } else {
         toast.error(data.message);
       }
@@ -231,32 +307,50 @@ const HostelInfo = () => {
     }
   };
 
-  const handleDeleteRoomClick = (index) => {
+  const handleDeleteRoomClick = (roomNumber) => {
     setConfirmType("room");
-    setRoomIndexToDelete(index);
+    setRoomNumberToDelete(roomNumber);
     setShowConfirmModal(true);
+  };
+
+  const deleteRoomInfo = async (roomNumber) => {
+    try {
+      const response = await fetch(`${deleteRoomUrl}${roomNumber}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        fetchRooms();
+        toast.success(data.message);
+        setRooms(rooms.filter((_, i) => i !== roomNumber));
+        setRoomNumberToDelete(null);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   const confirmDelete = () => {
     if (confirmType === "hostel") {
       deleteHostelInfo();
-      localStorage.removeItem("rooms");
-      setHostel(null);
-      setRooms([]);
-      setHostelName(null);
-      setHostelCategory("men");
-      setTotalRooms(null);
-      setMaxCapacity(null);
-    } else if (confirmType === "room" && roomIndexToDelete !== null) {
-      setRooms(rooms.filter((_, i) => i !== roomIndexToDelete));
-      setRoomIndexToDelete(null);
+    } else if (confirmType === "room" && roomNumberToDelete !== null) {
+      deleteRoomInfo(roomNumberToDelete);
     }
     setShowConfirmModal(false);
     setConfirmType(null);
   };
-  const editRoom = (index) => {
-    setNewRoom(rooms[index]);
-    setEditRoomId(index);
+  const editRoom = (roomNumber) => {
+    const roomIndex = rooms.findIndex((room) => room.number === roomNumber);
+    if (roomIndex === -1) {
+      toast.error("Room not found");
+      return;
+    }
+    setNewRoom(rooms[roomIndex]);
+    setEditRoomId(roomIndex);
     setShowRoomFormModal(true);
   };
   const totalPages = Math.ceil(rooms.length / roomsPerPage);
