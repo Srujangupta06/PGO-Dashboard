@@ -47,7 +47,6 @@ get all data
 
 (Confirm once sure to delete hostel)
 
-
 # Room
 
 -api/hostel/room/add    - Adds a single room

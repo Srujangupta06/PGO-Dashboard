@@ -14,7 +14,7 @@ const FaqCard = (props) => {
         className="flex items-center justify-between cursor-pointer"
         onClick={onHandleToggleFaqCard}
       >
-        <h3 className="font-semibold text-sm">{question}</h3>
+        <h3 className="font-semibold text-sm text-gray-600">{question}</h3>
         <button
           className="cursor-pointer border-none outline-none"
           aria-label="toggle"

@@ -11,27 +11,27 @@ export const toastNoficationSettings = {
 export const faqList = [
   {
     id: uuidv4(),
-    question: "How do I book?",
+    question: "How does verification work?",
     answer:
-      "To book a PG, simply search for your desired location. Compare options based on amenities and pricing, then proceed to secure your booking online.",
+      "After signing up, our team will verify your hostel's details and your identity. This ensures that only verified hosts can list on our platform, providing a secure and trustworthy environment.",
   },
   {
     id: uuidv4(),
-    question: "What payment methods?",
+    question: "Can I add multiple hostels?",
     answer:
-      "We accept various payment methods, including credit cards, debit cards, and digital wallets. All transactions are processed securely to ensure your safety.",
+      "Sorry right now, we are only giving access to add one hostel. Definitely, you can add multiple in future versions.",
   },
   {
     id: uuidv4(),
-    question: "Is my payment secure?",
+    question: "How do I manage room availability?",
     answer:
-      "Absolutely! We use advanced encryption technology to protect your payment information. Your security is our top priority.",
+      "Managing room availability is simple! In your dashboard, you can update the number of available rooms, set vacancy status, and adjust prices in real-time.",
   },
 
   {
     id: uuidv4(),
-    question: "Contact hostel owners?",
+    question: "How do I manage bookings?",
     answer:
-      "You can easily contact hostel owners through our platform. Use the WhatsApp chat feature for instant communication.",
+      "While this platform doesn't handle bookings directly, you can use it to manage room availability and pricing. Once you have a booking, you can manually track it through your dashboard.",
   },
 ];
