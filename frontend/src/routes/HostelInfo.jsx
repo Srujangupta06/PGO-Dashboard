@@ -101,7 +101,7 @@ const HostelInfo = () => {
   useEffect(() => {
     fetchHostel();
     fetchRooms();
-  }, []);
+  },[])
 
   useEffect(() => {
     if (isEditingHostel && hostel) {
