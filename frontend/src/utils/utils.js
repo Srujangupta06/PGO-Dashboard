@@ -7,7 +7,27 @@ export const toastNoficationSettings = {
   pauseOnHover: false,
   closeOnClick: false,
 };
-
+export const loginSuccessToastNotificationSettings = {
+  autoClose: 3000,
+  pauseOnHover: false,
+  closeOnClick: false,
+  position: "bottom-center",
+  icon: false,
+  className: "custom-toast",
+  bodyClassName: "custom-toast-body",
+  progress: false,
+  closeButton: false,
+};
+export const errorViewToastNotificationSettings = {
+  autoClose: 3000,
+  pauseOnHover: false,
+  closeOnClick: false,
+  icon: false,
+  className: "custom-toast-error",
+  bodyClassName: "custom-toast-error-body",
+  progress: false,
+  closeButton: false,
+}
 export const faqList = [
   {
     id: uuidv4(),

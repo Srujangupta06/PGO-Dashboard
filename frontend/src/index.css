@@ -9,14 +9,12 @@
 ::-webkit-scrollbar {
   display: none;
 }
-
-.home-hero-bg-container {
-  background-image: url("https://res.cloudinary.com/djv3sgbxn/image/upload/v1741244673/home-banner-2_oocxut.jpg");
-  min-height: 90vh;
-  background-size: cover;
-  background-position: center center;
+.custom-toast {
+  background-color: #33ce57 !important;
+  font-size: 1.2rem;
+  min-height: 70px;
+  color: white;
+  border-radius: 10px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
 }

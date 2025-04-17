@@ -38,22 +38,9 @@ const HostelAndRoomDetails = ({
           </button>
         </div>
       </div>
-      {/* <div className="pb-6 grid grid-cols-1 gap-3 text-lg">
-        <p>
-          <strong>Hostel Name:</strong> {hostel.name}
-        </p>
-        <p>
-          <strong>Hostel Category:</strong> {hostel.category}
-        </p>
-        <p>
-          <strong>Total Rooms:</strong> {hostel.totalRooms}
-        </p>
-        <p>
-          <strong>Total Capacity:</strong> {hostel.maxCapacity}
-        </p>
-      </div> */}
+    
       {/* changes to card data wise */}
-      <div className="p-6 rounded-2xl border border-gray-300 bg-white shadow-md text-lg grid grid-cols-1 gap-3">
+      <div className="p-6 rounded-2xl border border-gray-300 bg-white shadow-md text-lg w-1/2 grid grid-cols-1 gap-3">
         <p>
           <strong className="text-gray-700">Hostel Name:</strong> {hostel.name}
         </p>
