@@ -361,7 +361,7 @@ const HostelInfo = () => {
 
   return (
     <div>
-      <div className="w-full p-2 min-h-screen flex justify-center items-start relative">
+      <div className="w-full pt-0 min-h-screen flex justify-center items-start relative">
         <div className="w-full p-10 max-w-7xl">
           <h1 className="p-2 text-4xl font-bold mb-2 text-center">
             Hostel Management

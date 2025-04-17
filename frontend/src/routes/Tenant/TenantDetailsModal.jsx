@@ -26,7 +26,7 @@ const TenantDetailsModal = ({ tenant, onClose }) => {
   if (!tenant) return null;
 
   return (
-    <div className="fixed inset-0 z-20 overflow-y-auto bg-black bg-opacity-50 pt-10 pb-10">
+    <div className="fixed inset-0 z-20 overflow-y-auto bg-gray-100 bg-opacity-0 pt-10 pb-10">
       <div className="flex items-center justify-center min-h-screen px-4">
         <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-2xl relative">
           <button
