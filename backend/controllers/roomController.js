@@ -17,7 +17,18 @@ export const addRoomInfo = async (req, res) => {
     const { id } = req.user;
     const { roomNumber, sharingType, rent, totalBeds, availableBeds } =
       req.body;
-    if (!roomNumber || !sharingType || !rent || !totalBeds || !availableBeds) {
+    if (
+      roomNumber === undefined ||
+      roomNumber === null ||
+      sharingType === undefined ||
+      sharingType === null ||
+      rent === undefined ||
+      rent === null ||
+      totalBeds === undefined ||
+      totalBeds === null ||
+      availableBeds === undefined ||
+      availableBeds === null
+    ) {
       throw new Error("All Fields are Required");
     }
     if(availableBeds < 0){
@@ -90,7 +101,7 @@ export const updateRoomInfo = async (req, res) => {
     room.totalBeds = totalBeds;
     room.availableBeds = availableBeds;
     await hostelInfo.save();
-    res.send(`Room No ${roomId} Updated Successfully`);
+    res.status(200).json({ message: "Room Updated Successfully" });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -111,11 +122,9 @@ export const deleteRoomInfo = async (req, res) => {
       (roomInfo) => roomInfo.roomNumber != roomId
     );
     await hostelInfo.save();
-    res
-      .status(200)
-      .json({
-        message: `Room ${roomId} Deleted Successfully`,
-      });
+    res.status(200).json({
+      message: `Room ${roomId} Deleted Successfully`,
+    });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

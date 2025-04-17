@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { backendUrl, toastNoficationSettings } from "../utils/utils";
+import { backendUrl, loginSuccessToastNotificationSettings,toastNoficationSettings} from "../utils/utils";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import validator from "validator";
@@ -45,7 +45,7 @@ const Login = () => {
         const data = await response.json();
         const { message, jwtToken } = data;
         Cookies.set("jwtToken", jwtToken, { expires: 0.25 }); // Expires in 6 hours
-        toast.success(message, toastNoficationSettings);
+        toast.success(message, loginSuccessToastNotificationSettings);
         navigate("/dashboard");
       } else {
         const data = await response.json();
@@ -53,8 +53,7 @@ const Login = () => {
         toast.error(message, toastNoficationSettings);
       }
     } catch (error) {
-      console.error("Registration Error:", error);
-      toast.error(error.message, toastNoficationSettings);
+      toast.warning("Something went wrong", toastNoficationSettings);
     }
   };
   const token = Cookies.get("jwtToken");

@@ -93,53 +93,49 @@ const HostelAndRoomDetails = ({
           </button>
         </div>
 
-        <table className="w-full table-auto">
+        <table className="w-full mt-2 rounded-md">
           <thead>
-            <tr className="bg-gray-100 text-left">
-              <th className="p-3 text-gray-700 font-semibold">Room No.</th>
-              <th className="p-3 text-gray-700 font-semibold">Room Type</th>
-              <th className="p-3 text-gray-700 font-semibold">Beds</th>
-              <th className="p-3 text-gray-700 font-semibold">
-                Available Beds
-              </th>
-              <th className="p-3 text-gray-700 font-semibold">Room Rent</th>
-              <th className="p-3 text-gray-700 font-semibold">Room Status</th>
-              <th className="p-3 text-gray-700 font-semibold text-center">
-                Actions
-              </th>
+            <tr className="bg-gray-200">
+              <th className="p-2 text-gray-700 font-medium">Room No.</th>
+              <th className="p-2 text-gray-700 font-medium">Room Type</th>
+              <th className="p-2 text-gray-700 font-medium">Beds</th>
+              <th className="p-2 text-gray-700 font-medium">Available Beds</th>
+              <th className="p-2 text-gray-700 font-medium">Room Rent</th>
+              <th className="p-2 text-gray-700 font-medium">Room Status</th>
+              <th className="p-2 text-gray-700 font-medium">Actions</th>
             </tr>
           </thead>
           <tbody>
             {displayedRooms.map((room, index) => (
-              <tr key={index} className="border-b hover:bg-gray-50 transition">
-                <td className="p-3 text-center">{room.number}</td>
-                <td className="p-3 text-center">{room.type}</td>
-                <td className="p-3 text-center">{room.beds}</td>
-                <td className="p-3 text-center">{room.availableBeds}</td>
-                <td className="p-3 text-center">{room.rent}</td>
-                <td className="p-3 text-center">
-                  <span
-                    className={`px-3 py-1 text-xs font-semibold rounded-full inline-block ${
-                      room.status === "Available"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-gray-200 text-gray-700"
+              <tr key={index} className="border-y border-gray-300">
+                <td className="p-4 text-center">{room.number}</td>
+                <td className="p-4 text-center">{room.type}</td>
+                <td className="p-4 text-center">{room.beds}</td>
+                <td className="p-4 text-center">{room.availableBeds}</td>
+                <td className="p-4 text-center">{room.rent}</td>
+                <td className="p-4 text-center font-bold">
+                  <p
+                    className={`px-2 py-1 inline-flex text-xs font-semibold rounded-full ${
+                      room.availableBeds > 0
+                        ? "bg-green-200 text-green-800"
+                        : "bg-gray-200 text-gray-800"
                     }`}
                   >
-                    {room.status}
-                  </span>
+                    {room.availableBeds > 0 ? "Available" : "Occupied"}
+                  </p>
                 </td>
-                <td className="p-3 flex justify-center items-center gap-3">
+                <td className="p-4 flex justify-center items-center gap-2">
                   <button
-                    onClick={() => editRoom(index)}
-                    className="text-blue-600 hover:text-blue-800 transition"
+                    onClick={() => editRoom(room.number)}
+                    className="text-gray-600"
                   >
-                    <FaPencilAlt size={16} />
+                    <FaPencilAlt size={18} />
                   </button>
                   <button
-                    onClick={() => handleDeleteRoomClick(index)}
-                    className="text-red-600 hover:text-red-800 transition"
+                    onClick={() => handleDeleteRoomClick(room.number)}
+                    className="text-gray-600"
                   >
-                    <FaTrash size={16} />
+                    <FaTrash size={18} />
                   </button>
                 </td>
               </tr>
