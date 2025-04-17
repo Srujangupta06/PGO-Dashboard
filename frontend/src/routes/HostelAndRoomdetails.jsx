@@ -1,5 +1,6 @@
 import React from "react";
-import { FaEdit, FaTrash, FaPlus, FaPencilAlt } from "react-icons/fa";
+import Table from "../ui/Table/Table";
+import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 
 const HostelAndRoomDetails = ({
   setIsEditingHostel,
@@ -23,14 +24,14 @@ const HostelAndRoomDetails = ({
         <div className="flex gap-6 items-center">
           <button
             onClick={() => setIsEditingHostel(true)}
-            className="text-red-600 flex gap-2 p-1 w-24 border-2 border-red-600 justify-center items-center rounded-lg hover:scale-110 duration-300 transition"
+            className="text-blue-500 flex gap-2 p-1 w-24 border-2 border-blue-500 cursor-pointer justify-center items-center rounded-lg hover:scale-110 duration-300 transition"
           >
             <FaEdit size={18} />
             Edit
           </button>
           <button
             onClick={handleDeleteHostelClick}
-            className="text-white bg-red-600 flex gap-2 p-2 w-24 justify-center items-center rounded-lg hover:scale-110 duration-300 transition"
+            className="text-white bg-blue-500 cursor-pointer flex gap-2 p-2 w-24 justify-center items-center rounded-lg hover:scale-110 duration-300 transition"
           >
             <FaTrash size={18} />
             Delete
@@ -86,14 +87,28 @@ const HostelAndRoomDetails = ({
                 status: "available",
               });
             }}
-            className="bg-green-600 text-white py-2 px-4 flex items-center gap-2 rounded-lg hover:bg-green-700 hover:scale-105 transition duration-200"
+            className="bg-blue-500 cursor-pointer text-white py-2 px-4 flex items-center gap-2 rounded-lg hover:bg-blue-700 hover:scale-105 transition duration-200"
           >
             <FaPlus className="text-white" />
             Add New Room
           </button>
         </div>
 
-        <table className="w-full mt-2 rounded-md">
+        <Table
+          headingList={[
+            "Room No.",
+            "Room Type",
+            "Beds",
+            "Available Beds",
+            "Room Rent",
+            "Room Status",
+          ]}
+          bodyData={displayedRooms}
+          editRoom={editRoom}
+          handleDeleteRoomClick={handleDeleteRoomClick}
+        />
+
+        {/* <table className="w-full mt-2 rounded-md">
           <thead>
             <tr className="bg-gray-200">
               <th className="p-2 text-gray-700 font-medium">Room No.</th>
@@ -141,7 +156,7 @@ const HostelAndRoomDetails = ({
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
 
         {rooms.length === 0 && (
           <p className="text-center text-gray-600 py-4">

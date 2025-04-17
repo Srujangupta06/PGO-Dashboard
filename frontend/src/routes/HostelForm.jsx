@@ -47,7 +47,7 @@ const HostelForm = ({
                       setTotalRooms(""),
                       setMaxCapacity("");
                   }}
-                  className="border-red-600 border-2 gap-2 text-red-600 text-lg p-1 rounded-lg hover:scale-105 transition duration-300 shadow-md w-24 flex justify-center items-center"
+                  className="border-blue-500 border-2 cursor-pointer gap-2 text-blue-500 text-lg p-1 rounded-lg hover:scale-105 transition duration-300 shadow-md w-24 flex justify-center items-center"
                 >
                   <FaTimes size={20} /> Reset
                 </button>
@@ -57,7 +57,7 @@ const HostelForm = ({
                     setShowAddHostelFormModal(false);
                     setIsEditingHostel(false);
                   }}
-                  className="bg-red-600 text-white text-lg p-2 gap-2 w-24 flex justify-center items-center rounded-lg hover:scale-105 transition duration-300 shadow-md"
+                  className="bg-blue-500 text-white text-lg cursor-pointer p-2 gap-2 w-24 flex justify-center items-center rounded-lg hover:scale-105 transition duration-300 shadow-md"
                 >
                   <FaSave size={20} /> Save
                 </button>
@@ -111,7 +111,7 @@ const HostelForm = ({
               onClick={() => {
                 setShowAddHostelFormModal(false), setIsEditingHostel(false);
               }}
-              className="bg-red-600 mt-4 text-white text-lg p-2 gap-2 w-24 flex justify-center items-center rounded-lg hover:scale-105 transition duration-300 shadow-md"
+              className="bg-blue-500 mt-4 cursor-pointer text-white text-lg p-2 gap-2 w-24 flex justify-center items-center rounded-lg hover:scale-105 transition duration-300 shadow-md"
             >
               Back
             </button>

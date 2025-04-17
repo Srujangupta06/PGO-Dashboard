@@ -43,7 +43,7 @@ const Topbar = () => {
 
         {/* Logout Button */}
         <button
-          className="text-red-600 text-xl rounded-lg hover:scale-110 transition-transform duration-150"
+          className="text-blue-500 text-xl rounded-lg hover:scale-110 transition-transform duration-150"
           onClick={handleLogout}
         >
           <FaSignOutAlt />

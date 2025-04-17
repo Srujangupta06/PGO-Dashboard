@@ -126,7 +126,7 @@ const Profile = () => {
         {/* Back to Dashboard Button */}
         <Link
           to="/dashboard"
-          className="mt-6 inline-block w-full bg-red-600 text-white py-2 rounded-lg text-md  hover:bg-red-700 transition duration-300"
+          className="mt-6 inline-block w-full bg-blue-500 text-white py-2 rounded-lg text-md  hover:bg-blue-700 transition duration-300"
         >
           Back to Dashboard
         </Link>

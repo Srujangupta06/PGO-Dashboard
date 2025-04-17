@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FaBed, FaDollarSign, FaCheckCircle, FaEdit } from "react-icons/fa";
 import HostelAndRoomDetails from "./HostelAndRoomdetails";
 import ConfirmModal from "./ConfirmModal";
 import { backendUrl } from "../utils/utils";
@@ -87,6 +88,7 @@ const HostelInfo = () => {
         const data = await response.json();
         if (data) {
           setHostel(data);
+          fetchRooms();
         } else {
           setHostel(null);
         }
@@ -100,7 +102,6 @@ const HostelInfo = () => {
 
   useEffect(() => {
     fetchHostel();
-    fetchRooms();
   }, []);
 
   useEffect(() => {
@@ -363,58 +364,70 @@ const HostelInfo = () => {
     <div>
       <div className="w-full p-2 min-h-screen flex justify-center items-start relative">
         <div className="w-full p-10 max-w-7xl">
-          <h1 className="p-2 text-4xl font-bold mb-2 text-center">
-            Hostel Management
-          </h1>
-
           {loading ? (
             <div className="flex justify-center items-center h-60">
               <div className="w-12 h-12 border-4 border-dashed rounded-full animate-spin border-blue-500"></div>
             </div>
           ) : !hostel || Object.keys(hostel).length === 0 ? (
-            <div className="bg-white w-full max-w-4xl mx-auto flex gap-20">
-              <div className="flex flex-col justify-center gap-18">
-                <h1 className="font-medium text-2xl text-gray-700 leading-10">
-                  List Your
-                  <br />
-                  <span className="font-bold text-6xl">Hostel</span>
-                </h1>
-                <h1 className="font-light italic text-xl text-gray-800">
-                  It all begins with one click — add your hostel and manage with
-                  ease.
-                </h1>
-                <button
-                  onClick={() => {
-                    setShowAddHostelFormModal(true);
-                  }}
-                  className="bg-green-600 text-white w-40 px-4 py-2 rounded-full hover:scale-105 transition flex justify-center items-center"
-                >
-                  Get Started
-                </button>
-              </div>
-              <div className="h-full w-full">
-                <img
-                  src="https://img.freepik.com/free-vector/college-student-dorm-interior-young-travelers-stopping-hostel-vector-illustration-alternative-accommodation-backpackers-house-trip-concept_74855-13027.jpg"
-                  className="h-120"
-                />
+            <div className="min-h-[calc(100vh-200px)] flex flex-col items-center justify-center px-4 text-center">
+              <h2 className="text-red-700 font-bold text-2xl mb-10 max-w-xl">
+                You haven't listed any hostel yet!
+              </h2>
+              <p className="text-gray-600 text-lg mb-8 max-w-xl">
+                Start managing your hostel digitally – add your property and
+                control every detail with ease.
+              </p>
+
+              <button
+                onClick={() => setShowAddHostelFormModal(true)}
+                className=" bg-radial from-blue-400 via-blue-500 to-blue-600 text-white px-6 py-3 rounded-full cursor-pointer hover:scale-105 transition duration-300"
+              >
+                List Your Hostel
+              </button>
+
+              <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-gray-700">
+                <div className="flex flex-col items-center">
+                  <FaBed size={40} className="w-12 mb-4 text-blue-500" />
+                  <p>Room & Bed Management</p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <FaDollarSign size={40} className="w-12 mb-4 text-blue-500" />
+                  <p>Update Rent Anytime</p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <FaCheckCircle
+                    size={40}
+                    className="w-12 mb-4 text-blue-500"
+                  />
+                  <p>Track Availability</p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <FaEdit size={40} className="w-12 mb-4 text-blue-500" />
+                  <p>Edit Hostel Info</p>
+                </div>
               </div>
             </div>
           ) : (
-            <HostelAndRoomDetails
-              setIsEditingHostel={setIsEditingHostel}
-              hostel={hostel}
-              handleDeleteHostelClick={handleDeleteHostelClick}
-              setShowRoomFormModal={setShowRoomFormModal}
-              setEditRoomId={setEditRoomId}
-              setNewRoom={setNewRoom}
-              displayedRooms={displayedRooms}
-              editRoom={editRoom}
-              handleDeleteRoomClick={handleDeleteRoomClick}
-              setPageNumber={setPageNumber}
-              rooms={rooms}
-              pageNumber={pageNumber}
-              totalPages={totalPages}
-            />
+            <div>
+              <h1 className="p-2 text-4xl font-bold mb-2 text-center">
+                Hostel Management
+              </h1>
+              <HostelAndRoomDetails
+                setIsEditingHostel={setIsEditingHostel}
+                hostel={hostel}
+                handleDeleteHostelClick={handleDeleteHostelClick}
+                setShowRoomFormModal={setShowRoomFormModal}
+                setEditRoomId={setEditRoomId}
+                setNewRoom={setNewRoom}
+                displayedRooms={displayedRooms}
+                editRoom={editRoom}
+                handleDeleteRoomClick={handleDeleteRoomClick}
+                setPageNumber={setPageNumber}
+                rooms={rooms}
+                pageNumber={pageNumber}
+                totalPages={totalPages}
+              />
+            </div>
           )}
 
           {showRoomFormModal && (

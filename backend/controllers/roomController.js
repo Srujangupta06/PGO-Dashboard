@@ -55,9 +55,6 @@ export const addRoomInfo = async (req, res) => {
         return res.status(400).json({
           message: "Available Beds cannot be greater than Total Beds",
         });
-        return res.status(400).json({
-          message: "Available Beds cannot be greater than Total Beds",
-        });
       }
 
       hostelInfo?.rooms.push({
