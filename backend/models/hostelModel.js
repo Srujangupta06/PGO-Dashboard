@@ -4,7 +4,7 @@ import { roomSchema } from "./roomModel.js";
 const hostelSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
-    category: { type: String, required: true, enum: ["men", "women"] },
+    category: { type: String, required: true, enum: ["Men", "Women"] },
     maxCapacity: { type: Number, required: true },
     totalRooms: { type: Number, required: true },
     rooms: { type: [roomSchema], required: true },
