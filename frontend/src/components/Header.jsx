@@ -14,13 +14,9 @@ export default function Navbar() {
   return (
     <header className="flex justify-between items-center px-6 py-2 shadow-md bg-white sm:px-10 md:px-32">
       {/* Logo */}
-      <Link to="/" className="text-2xl font-bold text-gray-800">
-        <div className="flex items-center space-x-2">
-          <img
-            src="https://www.gtands.com/static/media/logo.b577779c31c6d4b7ee27.jpeg"
-            alt="PG Logo"
-            className="h-12 w-12 rounded-full border-2 border-white shadow-md"
-          />
+      <Link to="/">
+        <div className="text-blue-500 text-2xl">
+          logo
         </div>
       </Link>
 
