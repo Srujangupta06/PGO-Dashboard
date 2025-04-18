@@ -11,12 +11,23 @@ export const loginSuccessToastNotificationSettings = {
   autoClose: 3000,
   pauseOnHover: false,
   closeOnClick: false,
+  closeButton: false,
   position: "bottom-center",
   icon: false,
   className: "custom-toast",
   bodyClassName: "custom-toast-body",
-  progress: false,
+  hideProgressBar: true,
+};
+export const logoutToastNotificationSettings = {
+  autoClose: 3000,
+  pauseOnHover: false,
+  closeOnClick: false,
   closeButton: false,
+  position: "bottom-center",
+  icon: false,
+  className: "custom-toast-logout",
+  bodyClassName: "custom-toast-body",
+  hideProgressBar: true,
 };
 export const errorViewToastNotificationSettings = {
   autoClose: 3000,
@@ -27,7 +38,7 @@ export const errorViewToastNotificationSettings = {
   bodyClassName: "custom-toast-error-body",
   progress: false,
   closeButton: false,
-}
+};
 export const faqList = [
   {
     id: uuidv4(),

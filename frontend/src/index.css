@@ -9,16 +9,24 @@
   display: none;
 }
 .custom-toast {
-  background-color: #33ce57 !important;
+  background-color: #d1fae5 !important;
   font-size: 1.2rem;
   min-height: 70px;
-  color: white;
+  color: #047857;
   border-radius: 10px;
   display: flex;
   justify-content: center;
 }
-
-.active{
+.custom-toast-logout {
+  background-color: #3b82f6 !important;
+  font-size: 1rem;
+  min-height: 50px;
+  color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  width: fit-content;
+}
+.active {
   color: rgb(44, 119, 231);
   font-size: 20px;
   font-weight: 600;

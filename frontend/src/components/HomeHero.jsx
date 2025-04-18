@@ -13,7 +13,7 @@ const HomeHero = () => {
           No more hostel headaches. Just smooth control.
         </p>
         <p className="text-lg text-gray-600">
-          Say goodbye to boring <span className="text-blue-500 font-medium line-through">spreadsheets and messy records</span>
+          Say goodbye to boring <span className="font-medium line-through">spreadsheets and messy records</span>
         </p>
 
         <div className="flex items-center gap-4 flex-wrap justify-center">

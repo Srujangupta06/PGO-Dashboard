@@ -8,7 +8,7 @@ import { MdVerifiedUser } from "react-icons/md";
 import { RiBuildingLine } from "react-icons/ri";
 const Home = () => {
   return (
-    <main className="">
+    <main className="relative top-[100px] pb-12">
       {/*Hero Section*/}
       <HomeHero />
       {/*Section 2 */}

@@ -363,7 +363,7 @@ const HostelInfo = () => {
   return (
     <div>
       <div className="w-full pt-0 min-h-screen flex justify-center items-start relative">
-        <div className="w-full p-10 max-w-7xl">
+        <div className="w-full pt-4 max-w-7xl">
           {loading ? (
             <div className="flex justify-center items-center h-60">
               <div className="w-12 h-12 border-4 border-dashed rounded-full animate-spin border-blue-500"></div>
@@ -409,9 +409,6 @@ const HostelInfo = () => {
             </div>
           ) : (
             <div>
-              <h1 className="p-2 text-4xl font-bold mb-2 text-center">
-                Hostel Management
-              </h1>
               <HostelAndRoomDetails
                 setIsEditingHostel={setIsEditingHostel}
                 hostel={hostel}

@@ -20,7 +20,7 @@ const HostelAndRoomDetails = ({
   return (
     <div className="w-full mx-auto p-4">
       <div className="w-full flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Hostel Details</h2>
+        <h2 className="text-xl font-semibold text-gray-600">Hostel Overview</h2>
         <div className="flex gap-6 items-center">
           <button
             onClick={() => setIsEditingHostel(true)}
@@ -46,15 +46,15 @@ const HostelAndRoomDetails = ({
           <span className="font-semibold text-xl">{hostel.name}</span>
         </p>
         <p className="text-gray-700 text-lg">
-          Hostel Category:{" "}
+          Category:{" "}
           <span className="font-semibold text-xl">{hostel.category}</span>
         </p>
         <p className="text-gray-700 text-lg">
-          Total Rooms:{" "}
+          Rooms:{" "}
           <span className="font-semibold text-xl">{hostel.totalRooms}</span>
         </p>
         <p className="text-gray-700 text-lg">
-          Total Capacity:{" "}
+          Max Capacity:{" "}
           <span className="font-semibold text-xl">{hostel.maxCapacity}</span>
         </p>
       </div>

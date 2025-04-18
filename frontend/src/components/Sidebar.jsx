@@ -15,6 +15,7 @@ import Fees from "../routes/Fees/FeesManagement";
 import MessDetails from "../routes/MessDetails";
 import Maintenance from "../routes/Maintenance";
 import Topbar from "./Topbar";
+import { Link } from "react-router-dom";
 
 const sections = [
   { id: "admin", title: "Dashboard", icon: <FaUser /> },
@@ -55,22 +56,24 @@ export default function Sidebar() {
     <div className="flex h-screen w-screen bg-gray-100">
       {/* Sidebar */}
       <aside className="w-72 bg-white text-gray-900 shadow-xl h-screen flex flex-col border-r border-gray-300">
-        <div className="bg-blue-500 text-white font-bold text-3xl h-16 flex items-center justify-start px-6 text-start shadow-lg">
-          🏠 Hostel Pro
-        </div>
+        <Link to="/">
+          <div className="bg-blue-500 text-white font-bold text-2xl h-16 flex items-center justify-start px-6 text-start shadow-lg">
+            logo
+          </div>
+        </Link>
 
         <ul className="flex-1 overflow-y-auto p-5 space-y-3">
           {sections.map((section) => (
             <li
               key={section.id}
               onClick={() => setActiveSection(section.id)}
-              className={`flex items-center gap-3 py-3 px-5 rounded-md cursor-pointer transition-all duration-300 text-lg font-medium tracking-wide shadow-sm ${
+              className={`flex items-center gap-3 py-3 px-5 rounded-md cursor-pointer transition-all duration-300 text-sm font-medium tracking-wide shadow-sm ${
                 activeSection === section.id
                   ? "bg-blue-500 text-white shadow-md"
                   : "hover:bg-blue-700 hover:text-white hover:shadow-md text-gray-900"
               }`}
             >
-              <span className="text-xl">{section.icon}</span>
+              <span className="text-lg">{section.icon}</span>
               <span className="truncate">{section.title}</span>
             </li>
           ))}

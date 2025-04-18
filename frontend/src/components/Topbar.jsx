@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
-import { backendUrl } from "../utils/utils";
+import { backendUrl, logoutToastNotificationSettings } from "../utils/utils";
 import Profile from "./Profile";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 const Topbar = () => {
@@ -41,23 +41,32 @@ const Topbar = () => {
   const handleLogout = () => {
     Cookies.remove("jwtToken");
     navigate("/");
-    toast.success("Logout Successful");
+    toast.success("Logout Successful",logoutToastNotificationSettings);
   };
-  if (profileData === null) {
-    return null;
-  }
+
   return (
     <div className="h-16 z-10 w-full">
       <div className="h-16 z-10 flex w-full justify-between items-center bg-white p-4 shadow-md">
         {/* Welcome Message */}
-        <div className="flex flex-col">
-          <h1 className="text-2xl font-bold text-gray-900">
-            Welcome back,{profileData?.name}
-          </h1>
-          <p className="text-sm text-gray-600 mt-1">
-            Hope your rooms are filling fast today!
-          </p>
-        </div>
+        {profileData !== null ? (
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-bold text-gray-900">
+              Welcome back,{profileData?.name}
+            </h1>
+            <p className="text-sm text-gray-600 mt-1">
+              Hope your rooms are filling fast today!
+            </p>
+          </div>
+        ) : (
+          <div className="flex flex-col">
+            <h1 className="text-2xl font-bold text-gray-900">
+              Welcome back,Guest
+            </h1>
+            <p className="text-sm text-gray-600 mt-1">
+              Hope your rooms are filling fast today!
+            </p>
+          </div>
+        )}
 
         {/* Icons Section */}
         <div className="flex items-center gap-x-8  px-8">
@@ -70,7 +79,12 @@ const Topbar = () => {
           >
             <FaUserCircle />
           </button>
-          <ReactTooltip id="profile-tooltip" place="bottom" effect="solid"  positionStrategy="fixed"/>
+          <ReactTooltip
+            id="profile-tooltip"
+            place="bottom"
+            effect="solid"
+            positionStrategy="fixed"
+          />
           {/* Logout Button */}
           <button
             className="text-blue-500 text-xl rounded-lg hover:scale-110 transition-transform duration-150 cursor-pointer"
@@ -81,10 +95,14 @@ const Topbar = () => {
             <FaSignOutAlt />
           </button>
 
-          <ReactTooltip id="logout-tooltip" place="top" effect="solid" positionStrategy="fixed"/>
+          <ReactTooltip
+            id="logout-tooltip"
+            place="top"
+            effect="solid"
+            positionStrategy="fixed"
+          />
         </div>
       </div>
-
       {showProfileModal && (
         <Profile
           setShowProfileModal={setShowProfileModal}

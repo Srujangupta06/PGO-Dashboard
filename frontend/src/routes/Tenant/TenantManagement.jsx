@@ -228,7 +228,7 @@ const TenantManagement = () => {
         <div className="flex space-x-2 mt-4 md:mt-0">
           <TenantFilters onFilterChange={handleFilterChange} />
           <button
-            className="px-4 py-2 bg-red-600 text-white rounded-lg flex items-center space-x-2 hover:bg-red-700"
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg flex items-center space-x-2 hover:bg-red-700"
             onClick={() => setShowAddModal(true)}
           >
             <PlusIcon className="h-5 w-5" />

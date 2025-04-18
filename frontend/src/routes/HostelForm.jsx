@@ -1,6 +1,6 @@
 import React from "react";
-import { RxCross2 } from "react-icons/rx";
-
+import { RxCrossCircled } from "react-icons/rx";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 const HostelForm = ({
   setHostelName,
   setHostelCategory,
@@ -37,16 +37,24 @@ const HostelForm = ({
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
             <div className="flex justify-between items-start">
               <h2 className="text-2xl font-bold mb-6 text-center text-gray-700">
-                Add Hostel
+                {isEditingHostel ? " Edit Hostel" : "Add Hostel"}
               </h2>
               <button
                 onClick={() => {
                   setShowAddHostelFormModal(false), setIsEditingHostel(false);
                 }}
-                className="cursor-pointer text-red-500 border-red-500 border p-1.5 rounded-full"
+                className="absolute top-5 right-5"
+                data-tooltip-id="add-form-close-tooltip"
+                data-tooltip-content="Close"
               >
-                <RxCross2 className="text-xl" />
+                <RxCrossCircled className="text-2xl text-red-600 cursor-pointer hover:text-red-900" />
               </button>
+              <ReactTooltip
+                id="add-form-close-tooltip"
+                place="left"
+                effect="solid"
+                className="!bg-red-700 !text-white !text-sm !rounded-sm !px-3 !py-1 shadow-lg"
+              />
             </div>
 
             <label>Hostel Name</label>
