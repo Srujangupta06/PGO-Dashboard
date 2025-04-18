@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { backendUrl, toastNoficationSettings } from "../utils/utils.jsx";
+import { backendUrl, toastNoficationSettings } from "../utils/utils.js";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 const Registration = () => {

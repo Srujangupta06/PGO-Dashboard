@@ -56,7 +56,9 @@ const Home = () => {
         </div>
       </section>
 
-      
+     
+        
+        <UserFeedback/>
 
       {/*Frequently Asked Questions */}
       <Faq />

@@ -8,11 +8,15 @@ const Footer = () => {
   return (
     <footer className="bg-gray-800 border-t border-gray-600 text-white py-4  px-6 sm:px-32">
       <div className="container grid grid-cols-1 md:grid-cols-3 gap-x-8">
-        <div>
-          <h2 className="text-xl font-semibold">Paying Guest Office</h2>
+        <div className="flex gap-x-4  h-fit items-center">
+          {/* <h2 className="text-xl font-semibold">Paying Guest Online</h2> */}
+          <img
+            src="https://www.gtands.com/static/media/logo.b577779c31c6d4b7ee27.jpeg"
+            alt="PG Logo"
+            className="h-12 w-12 rounded-full border-2 border-white shadow-md"
+          />
           <p className="mt-2 text-gray-400 text-sm">
-            Your comfort, our priority. Stay with us for a better living
-            experience.
+            One shot Visualization Platform to manage your hostel
           </p>
         </div>
 
@@ -38,27 +42,14 @@ const Footer = () => {
         </div>
 
         <div>
-          <Link to="/contact-us" className="text-white-400 hover:underline">
-            Contact Us
-          </Link>
-          <p className="mt-2 text-gray-400">
-            <Link
-              to="https://www.google.com/maps/search/Zolo+Stays+-+KPHB+Hostels,+KPHB,+Hyderabad/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white flex items-center gap-x-2 mb-2"
-            >
-              <MdLocationPin className="text-xl" />
-              <span className="text-sm">View Hostel on Google Maps</span>
-            </Link>
-          </p>
+          <h3 className="text-md font-semibold mb-2">Contact Us</h3>
 
           <Link
             to="tel:+919876543210"
             className="text-gray-400 hover:text-white flex items-center gap-x-2 mb-2"
           >
             <IoMdCall className="text-xl" />
-            <span className="text-sm">Call Now: +91 98765 43210</span>
+            <span className="text-sm">Call Now: +91 xxxxx xxxxx</span>
           </Link>
 
           <Link
@@ -68,7 +59,7 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <IoIosMail className="text-xl" />
-            <span className="text-sm">Login to Gmail</span>
+            <span className="text-sm">Email: xyz@example.com</span>
           </Link>
         </div>
       </div>
@@ -99,7 +90,7 @@ const Footer = () => {
           </Link>
         </div>
       </div>
-
+      <hr className="my-4 border-gray-600"/>
       <div className="mt-4 text-center text-gray-400 cursor-pointer hover:text-white">
         <span className="text-sm">
           &copy; 2025 PGO Hostel. All rights reserved.

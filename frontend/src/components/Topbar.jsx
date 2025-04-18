@@ -2,6 +2,7 @@ import { FaBell, FaUserCircle, FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import { toastNoficationSettings } from "../utils/utils";
 const Topbar = () => {
   const navigate = useNavigate();
 
@@ -12,7 +13,7 @@ const Topbar = () => {
   const handleLogout = () => {
     Cookies.remove("jwtToken");
     navigate("/");
-    toast.success("Logout Successful");
+    toast.success("Logout Successful",toastNoficationSettings);
   };
   return (
     <div className="h-16 z-10 flex w-full justify-between items-center bg-white p-4 shadow-md">
@@ -29,9 +30,9 @@ const Topbar = () => {
       {/* Icons Section */}
       <div className="flex items-center space-x-4">
         {/* Notification Icon */}
-        <button className="text-gray-700 text-2xl rounded-lg hover:scale-110 transition-transform duration-150">
+        {/* <button className="text-gray-700 text-2xl rounded-lg hover:scale-110 transition-transform duration-150">
           <FaBell />
-        </button>
+        </button> */}
 
         {/* Profile Icon */}
         <button
@@ -43,7 +44,7 @@ const Topbar = () => {
 
         {/* Logout Button */}
         <button
-          className="text-blue-500 text-xl rounded-lg hover:scale-110 transition-transform duration-150"
+          className="cursor-pointer text-blue-500 text-xl rounded-lg hover:scale-110 transition-transform duration-150"
           onClick={handleLogout}
         >
           <FaSignOutAlt />

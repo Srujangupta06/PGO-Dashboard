@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 export default function Navbar() {
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function Navbar() {
       <Link to="/" className="text-2xl font-bold text-gray-800">
         <div className="flex items-center space-x-2">
           <img
-            src="https://res.cloudinary.com/dit5wff6e/image/upload/v1741112028/pgo-logo-pgo-letter-pgo-letter-logo-design-initials-pgo-logo-linked-with-circle-and-uppercase-monogram-logo-pgo-typography-for-technology-busines-2RCXW4Y_oqe5ld.jpg"
+            src="https://www.gtands.com/static/media/logo.b577779c31c6d4b7ee27.jpeg"
             alt="PG Logo"
             className="h-12 w-12 rounded-full border-2 border-white shadow-md"
           />
@@ -26,19 +26,19 @@ export default function Navbar() {
 
       {/* Desktop Navigation (Visible on Large Screens) */}
       <nav className="hidden lg:flex gap-x-10 items-center">
-        <Link
+        <NavLink
           to="/"
-          className="text-gray-800 text-sm tracking-widest hover:text-gray-500 transition duration-300"
+          className=" text-gray-800 text-sm tracking-widest hover:text-gray-500 transition duration-300"
         >
           Home
-        </Link>
+        </NavLink>
 
-        <Link
+        <NavLink
           to="/about"
-          className="text-gray-800 text-sm tracking-widest hover:text-gray-500 transition duration-300"
+          className=" text-gray-800 text-sm tracking-widest hover:text-gray-500 transition duration-300"
         >
           About
-        </Link>
+        </NavLink>
       </nav>
 
       {/* Desktop Buttons (Login & Signup) */}

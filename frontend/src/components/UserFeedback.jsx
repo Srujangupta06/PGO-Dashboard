@@ -40,41 +40,42 @@ const UserFeedback = () => {
     ],
   };
 
-  // const fetchCustomerFeedback = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://localhost:5000/api/user/customer-reviews"
-  //     );
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       const popularFeedback = data.filter((feedback) => feedback.rating > 4);
-  //       setCustomerFeedback(popularFeedback);
-  //     } else {
-  //       console.log("error");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const fetchCustomerFeedback = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/review/view");
+      if (response.ok) {
+        const data = await response.json();
+        const popularFeedback = data.filter((feedback) => feedback.rating >= 4);
+        setCustomerFeedback(popularFeedback);
+      } else {
+        return <h1 className="text-center font-semibold tetx-gray-600">No Reviews to show</h1>;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  // useEffect(() => {
-  //   fetchCustomerFeedback();
-  // }, []);
+  useEffect(() => {
+    fetchCustomerFeedback();
+  }, []);
 
   return (
-    <section className="w-full flex flex-col items-center mb-6 sm:mb-12  sm:py-0 justify-between px-6 sm:px-10 md:px-32 ">
-      <h1 className="text-xl md:text-2xl font-semibold text-center tracking-wider leading-relaxed ">
-        What Our Customers Say
-      </h1>
-      {/*Make an API call to get feedback from customers */}
-      <div className="w-full overflow-hidden mt-2 md:mt-4">
+    <section className="px-6 md:px-20 xl:px-32 w-full mb-16 min-h-[60vh] max-w-screen-xl mx-auto">
+      <h2 className="text-2xl font-semibold text-blue-500 text-center mb-12 tracking-widest">
+        Testimonials
+      </h2>
+
+      <div className="w-full overflow-x-hidden mt-2 md:mt-4 bg-white">
         <Slider {...customerFeedbackSliderSettings}>
           {customerFeedback.map((feedback) => (
-            <UserFeedbackCard key={feedback._id} />
+            <div key={feedback._id} className="!flex justify-center px-3">
+              <UserFeedbackCard feedbackInfo={feedback} />
+            </div>
           ))}
         </Slider>
       </div>
     </section>
+
   );
 };
 
