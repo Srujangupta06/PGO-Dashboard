@@ -1,5 +1,4 @@
 import React from "react";
-import { FaTimes } from "react-icons/fa";
 
 const RoomFormModal = ({
   setShowRoomFormModal,
@@ -35,14 +34,6 @@ const RoomFormModal = ({
               <h2 className="text-xl font-bold text-gray-800">
                 {editRoomId !== null ? "Edit Room" : "Add Room"}
               </h2>
-              <button
-                onClick={() => {
-                  setShowRoomFormModal(false), setError(false);
-                }}
-                className="text-gray-600"
-              >
-                <FaTimes size={24} />
-              </button>
             </div>
 
             {/* Form Inputs */}
@@ -123,7 +114,7 @@ const RoomFormModal = ({
             )}
 
             {/* Buttons */}
-            <div className="bg-gray-50 px-4 py-3 mt-6 sm:px-6 sm:flex sm:flex-row-reverse flex justify-start">
+            <div className="px-4 py-3 mt-6 sm:px-6 sm:flex sm:flex-row-reverse flex justify-start">
               <button
                 onClick={addRoom}
                 className="w-full inline-flex justify-center rounded-lg border border-transparent shadow-sm px-4 py-2 cursor-pointer bg-blue-500 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"

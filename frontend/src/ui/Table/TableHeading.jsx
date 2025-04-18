@@ -1,7 +1,6 @@
-const TableHeading = ({headingList}) => {
-  
+const TableHeading = ({ headingList }) => {
   return (
-    <thead className="bg-gray-100 sticky top-0 z-10">
+    <thead className="bg-gray-100 top-0">
       <tr>
         {headingList.map((heading) => (
           <th
