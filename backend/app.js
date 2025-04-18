@@ -9,7 +9,7 @@ import hostelRoutes from "./router/hostelRouter.js";
 import cookieParser from "cookie-parser";
 import roomRoutes from "./router/roomRouter.js";
 import authRoutes from "./router/auth.js";
-
+import reviewRouter from "./router/reviewRouter.js"
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -31,6 +31,8 @@ app.use("/api/user", userRoutes);
 app.use("/api/hostel", hostelRoutes);
 
 app.use("/api/hostel/room", roomRoutes);
+
+app.use('/api/review',reviewRouter);
 const initializeDBAndServer = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
