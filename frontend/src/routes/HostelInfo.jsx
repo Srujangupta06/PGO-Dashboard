@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaBed, FaDollarSign, FaCheckCircle, FaEdit } from "react-icons/fa";
 import HostelAndRoomDetails from "./HostelAndRoomdetails";
 import ConfirmModal from "./ConfirmModal";
-import { backendUrl } from "../utils/utils";
+import { backendUrl, toastNoficationSettings } from "../utils/utils";
 import { toast } from "react-toastify";
 import RoomFormModal from "./RoomFormModal";
 import HostelForm from "./HostelForm";
@@ -35,7 +35,7 @@ const HostelInfo = () => {
   const [confirmType, setConfirmType] = useState(null);
   const [roomNumberToDelete, setRoomNumberToDelete] = useState(null);
   const [hostelName, setHostelName] = useState("");
-  const [hostelCategory, setHostelCategory] = useState("men");
+  const [hostelCategory, setHostelCategory] = useState("Men");
   const [totalRooms, setTotalRooms] = useState("");
   const [maxCapacity, setMaxCapacity] = useState("");
 
@@ -73,7 +73,7 @@ const HostelInfo = () => {
         }
       }
     } catch (error) {
-      toast.error("Failed to fetch rooms data from server.");
+      toast.error("Something Went Wrong", toastNoficationSettings);
     }
   };
 
@@ -94,7 +94,7 @@ const HostelInfo = () => {
         }
       }
     } catch (error) {
-      toast.error("Failed to fetch hostel data from server.");
+      toast.warning("Something Went Wrong", toastNoficationSettings);
     } finally {
       setLoading(false);
     }
@@ -135,7 +135,7 @@ const HostelInfo = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Something went wrong");
+      toast.warning("Something Went Wrong", toastNoficationSettings);
     } finally {
       setLoading(false);
     }
@@ -234,7 +234,7 @@ const HostelInfo = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Failed to save room");
+      toast.warning("Something Went Wrong", toastNoficationSettings);
     }
   };
 
@@ -295,14 +295,14 @@ const HostelInfo = () => {
         setHostel(null);
         setRooms([]);
         setHostelName(null);
-        setHostelCategory("men");
+        setHostelCategory("Men");
         setTotalRooms(null);
         setMaxCapacity(null);
       } else {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Something went wrong");
+      toast.warning("Something went wrong", toastNoficationSettings);
     } finally {
       setLoading(false);
     }
@@ -331,7 +331,7 @@ const HostelInfo = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error("Something went wrong");
+      toast.warning("Something Went Wrong", toastNoficationSettings);
     }
   };
 

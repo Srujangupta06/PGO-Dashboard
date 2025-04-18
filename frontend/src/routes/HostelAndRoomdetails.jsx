@@ -38,23 +38,24 @@ const HostelAndRoomDetails = ({
           </button>
         </div>
       </div>
-    
+
       {/* changes to card data wise */}
       <div className="p-6 rounded-2xl border border-gray-300 bg-white shadow-md text-lg w-1/2 grid grid-cols-1 gap-3">
-        <p>
-          <strong className="text-gray-700">Hostel Name:</strong> {hostel.name}
+        <p className="text-gray-700 text-lg">
+          Hostel Name:{" "}
+          <span className="font-semibold text-xl">{hostel.name}</span>
         </p>
-        <p>
-          <strong className="text-gray-700">Hostel Category:</strong>{" "}
-          {hostel.category}
+        <p className="text-gray-700 text-lg">
+          Hostel Category:{" "}
+          <span className="font-semibold text-xl">{hostel.category}</span>
         </p>
-        <p>
-          <strong className="text-gray-700">Total Rooms:</strong>{" "}
-          {hostel.totalRooms}
+        <p className="text-gray-700 text-lg">
+          Total Rooms:{" "}
+          <span className="font-semibold text-xl">{hostel.totalRooms}</span>
         </p>
-        <p>
-          <strong className="text-gray-700">Total Capacity:</strong>{" "}
-          {hostel.maxCapacity}
+        <p className="text-gray-700 text-lg">
+          Total Capacity:{" "}
+          <span className="font-semibold text-xl">{hostel.maxCapacity}</span>
         </p>
       </div>
 
@@ -146,43 +147,45 @@ const HostelAndRoomDetails = ({
         </table> */}
 
         {rooms.length === 0 && (
-          <p className="text-center text-gray-600 py-4">
+          <p className="text-center font-medium text-lg mt-4 text-red-500 py-4">
             No rooms available. Add a new room to get started.
           </p>
         )}
 
         {/* Pagination */}
-        <div className="flex justify-center items-center gap-6 mt-4 text-sm font-medium text-gray-700">
-          <button
-            disabled={pageNumber === 1}
-            onClick={() => setPageNumber((prev) => prev - 1)}
-            className={`px-4 py-2 rounded-md ${
-              pageNumber === 1
-                ? "bg-gray-200 cursor-not-allowed"
-                : "bg-gray-100 hover:bg-gray-200"
-            }`}
-          >
-            Prev
-          </button>
-          <span>
-            Page{" "}
-            <span className="font-bold">
-              {totalPages !== 0 ? pageNumber : 0}
-            </span>{" "}
-            of {totalPages}
-          </span>
-          <button
-            disabled={pageNumber === totalPages}
-            onClick={() => setPageNumber((prev) => prev + 1)}
-            className={`px-4 py-2 rounded-md ${
-              pageNumber === totalPages
-                ? "bg-gray-200 cursor-not-allowed"
-                : "bg-gray-100 hover:bg-gray-200"
-            }`}
-          >
-            Next
-          </button>
-        </div>
+        {rooms.length !== 0 && (
+          <div className="flex justify-center items-center gap-6 mt-4 text-sm font-medium text-gray-700">
+            <button
+              disabled={pageNumber === 1}
+              onClick={() => setPageNumber((prev) => prev - 1)}
+              className={`px-4 py-2 rounded-md ${
+                pageNumber === 1
+                  ? "bg-gray-200 cursor-not-allowed"
+                  : "bg-gray-100 hover:bg-gray-200"
+              }`}
+            >
+              Prev
+            </button>
+            <span>
+              Page{" "}
+              <span className="font-bold">
+                {totalPages !== 0 ? pageNumber : 0}
+              </span>{" "}
+              of {totalPages}
+            </span>
+            <button
+              disabled={pageNumber === totalPages}
+              onClick={() => setPageNumber((prev) => prev + 1)}
+              className={`px-4 py-2 rounded-md ${
+                pageNumber === totalPages
+                  ? "bg-gray-200 cursor-not-allowed"
+                  : "bg-gray-100 hover:bg-gray-200"
+              }`}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
