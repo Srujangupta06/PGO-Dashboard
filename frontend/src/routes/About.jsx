@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <main className="px-4 sm:px-8 md:px-16 lg:px-32 min-h-screen py-8">
+    <main className="px-4 sm:px-8 md:px-16 lg:px-32 min-h-screen relative top-[100px]">
       <section>
         {/* What is PGO */}
         <h1 className="text-2xl font-semibold text-blue-500 tracking-widest mb-4">
@@ -23,7 +23,7 @@ const About = () => {
             <div className="flex items-start gap-4">
               <div className="text-xl">🏢</div>
               <div>
-                <h3 className="text-xl  text-gray-700 tracking-widest mb-2">
+                <h3 className="text-xl text-blue-500 tracking-widest mb-2">
                   Easy Hostel Registration
                 </h3>
                 <p className="text-md text-gray-600">

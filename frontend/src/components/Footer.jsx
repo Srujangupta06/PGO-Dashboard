@@ -6,7 +6,7 @@ import { AiFillTwitterCircle, AiFillInstagram } from "react-icons/ai";
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-50 text-blue-500 py-4 px-6 sm:px-32">
+    <footer className="bg-blue-50 text-blue-500 py-4 px-6 sm:px-32 relative top-[200px]">
       <div className="container grid grid-cols-1 md:grid-cols-3 gap-x-8">
         <div>
           <Link to="/">

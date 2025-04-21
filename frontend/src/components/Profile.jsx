@@ -1,49 +1,12 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  FaEnvelope,
-  FaPhone,
-  FaBuilding,
-  FaMapMarkerAlt,
-  FaUsers,
-  FaClipboardList,
-} from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaEdit } from "react-icons/fa";
 import { RxCrossCircled } from "react-icons/rx";
-import { backendUrl } from "../utils/utils";
-import { toast } from "react-toastify";
-import { useState, useEffect } from "react";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 const Profile = ({
   setShowProfileModal,
   profileData,
-  setProfileData,
   handleProfilePicChange,
 }) => {
-  // const [profileData, setProfileData] = useState(null);
-  // const getProfileData = async () => {
-  //   try {
-  //     const apiUrl = `${backendUrl}/api/user/view-profile`;
-  //     const options = {
-  //       method: "GET",
-  //       credentials: "include",
-  //     };
-  //     const response = await fetch(apiUrl, options);
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       const { profileInfo } = data;
-  //       setProfileData(profileInfo);
-  //     }
-  //   } catch (err) {
-  //     toast.error(err.message);
-  //   }
-  // };
-
-  // const handleProfilePicChange = (e) => e.target.files;
-
-  // useEffect(() => {
-  //   getProfileData();
-  // }, []);
-
   if (!profileData)
     return (
       <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -62,7 +25,9 @@ const Profile = ({
           </span>
           <div className="relative inline-block align-bottom bg-blue-50 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
             <div className="bg-blue-50 shadow-xl rounded-xl p-8 max-w-lg w-full flex flex-col items-center ">
-              <h1 className="text-lg text-gray-600 mb-8">Loading your Profile, just a moment...</h1>
+              <h1 className="text-lg text-gray-600 mb-8">
+                Loading your Profile, just a moment...
+              </h1>
               <div className="flex justify-center items-center ">
                 <div className="w-12 h-12 border-4 border-dashed rounded-full animate-spin border-blue-500"></div>
               </div>
@@ -116,7 +81,7 @@ const Profile = ({
             <div className="relative mx-auto w-32 h-32 mt-16 group">
               {!avatarUrl ? (
                 <div className="w-full h-full rounded-full bg-red-600 flex items-center justify-center text-white text-5xl font-bold shadow-lg border-4 border-white">
-                  {initials || "?"}
+                  {initials}
                 </div>
               ) : (
                 <img
@@ -131,7 +96,7 @@ const Profile = ({
                 htmlFor="profilePicInput"
                 className="absolute bottom-0 right-0 bg-white p-2 rounded-full shadow-md cursor-pointer hover:bg-gray-100 transition group-hover:scale-110"
               >
-                ✏️ {/* Or use an SVG/icon here */}
+                <FaEdit className="text-blue-500" />
               </label>
 
               {/* Hidden File Input */}

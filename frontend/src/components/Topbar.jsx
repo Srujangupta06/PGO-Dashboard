@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
-import { backendUrl, logoutToastNotificationSettings } from "../utils/utils";
+import {
+  backendUrl,
+  logoutToastNotificationSettings,
+  toastNoficationSettings,
+} from "../utils/utils";
 import Profile from "./Profile";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 const Topbar = () => {
@@ -11,7 +15,7 @@ const Topbar = () => {
 
   const [profileData, setProfileData] = useState(null);
   const [showProfileModal, setShowProfileModal] = useState(false);
-
+  const [lastUploadedFileName, setLastUploadedFileName] = useState(null);
   const getProfileData = async () => {
     try {
       const apiUrl = `${backendUrl}/api/user/view-profile`;
@@ -25,7 +29,9 @@ const Topbar = () => {
         const { profileInfo } = data;
         setProfileData(profileInfo);
       }
-    } catch (err) {}
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
   useEffect(() => {
@@ -36,12 +42,54 @@ const Topbar = () => {
   //   navigate("/profile/view");
   // };
 
-  const handleProfilePicChange = (e) => e.target.files;
+  const handleProfilePicChange = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    // Prevent re-uploading same file
+    if (file.name === lastUploadedFileName) {
+      toast.info("This image is already uploaded.", toastNoficationSettings);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("avatar", file);
+
+    updateUserImage(formData);
+    setLastUploadedFileName(file.name); // Save current file name
+  };
+
+  const updateUserImage = async (formData) => {
+    try {
+      // Show a loading toast and store its id
+      const loadingToastId = toast.loading("Updating profile picture...");
+
+      const response = await fetch(`${backendUrl}/api/user/edit-profile`, {
+        method: "PATCH",
+        credentials: "include",
+        body: formData,
+      });
+
+      // Clear loading toast
+      toast.dismiss(loadingToastId);
+
+      if (response.ok) {
+        getProfileData(); // Refresh user info on UI
+      } else {
+        const error = await response.json();
+        toast.error(error.message || "Upload failed", toastNoficationSettings);
+      }
+    } catch (err) {
+      console.error("Profile Upload Error:", err);
+      toast.error("Something went wrong", toastNoficationSettings);
+    } 
+  };
 
   const handleLogout = () => {
     Cookies.remove("jwtToken");
     navigate("/");
-    toast.success("Logout Successful",logoutToastNotificationSettings);
+    toast.success("Logout Successful", logoutToastNotificationSettings);
   };
 
   return (
@@ -50,10 +98,10 @@ const Topbar = () => {
         {/* Welcome Message */}
         {profileData !== null ? (
           <div className="flex flex-col">
-            <h1 className="text-2xl font-bold text-gray-900">
-              Welcome back,{profileData?.name}
+            <h1 className="text-xl font-medium text-gray-600">
+              Welcome back,<span className="text-blue-500 font-semibold">{profileData?.name}</span>
             </h1>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-gray-600 mt-1 italic">
               Hope your rooms are filling fast today!
             </p>
           </div>
