@@ -1,61 +1,66 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+
 export default function Navbar() {
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const toggleMobileMenu = () => {
-    const menu = document.getElementById("mobile-menu");
-    if (menu) {
-      menu.classList.toggle("hidden");
-    }
+    setMobileOpen((prev) => !prev);
   };
 
   return (
-    <header className="flex justify-between items-center px-6 py-2 shadow-md bg-white sm:px-10 md:px-32 fixed w-full z-50">
-      {/* Logo */}
-      <Link to="/">
-        <div className="text-blue-500 text-2xl">
-          logo
-        </div>
-      </Link>
-
-      {/* Desktop Navigation (Visible on Large Screens) */}
-      <nav className="hidden lg:flex gap-x-10 items-center">
-        <NavLink
-          to="/"
-          className=" text-gray-800 text-sm tracking-widest hover:text-gray-500 transition duration-300"
-        >
-          Home
-        </NavLink>
-
-        <NavLink
-          to="/about"
-          className=" text-gray-800 text-sm tracking-widest hover:text-gray-500 transition duration-300"
-        >
-          About
-        </NavLink>
-      </nav>
-
-      {/* Desktop Buttons (Login & Signup) */}
-      <div className="hidden lg:flex flex-row items-center gap-x-4 md:gap-x-6">
-        <Link
-          to='contactSection'
-          className="cursor-pointer text-sm  tracking-widest border border-blue-500 text-blue-500 rounded-sm px-4 md:px-6 py-1.5  transition duration-300  flex items-center gap-x-2"
-        >
-          <span>Lets' talk</span>
+    <header className="fixed top-0 left-0 w-full z-50 bg-white shadow-md">
+      <div className="flex justify-between items-center px-4 sm:px-8 md:px-16 lg:px-28 py-3">
+        {/* Logo */}
+        <Link to="/">
+          <div className="text-blue-600 text-2xl font-bold tracking-wide">
+            logo
+          </div>
         </Link>
-      </div>
 
-      {/* Mobile Menu Button (Visible on Small & Medium Screens) */}
-      <div className="lg:hidden">
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex gap-x-10 items-center">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `text-sm tracking-wide text-gray-800 hover:text-blue-500 transition ${
+                isActive ? "font-semibold text-blue-600" : ""
+              }`
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              `text-sm tracking-wide text-gray-800 hover:text-blue-500 transition ${
+                isActive ? "font-semibold text-blue-600" : ""
+              }`
+            }
+          >
+            About
+          </NavLink>
+        </nav>
+
+        {/* Desktop Buttons */}
+        <div className="hidden lg:flex gap-x-4">
+          <Link
+            to="contactSection"
+            className="text-sm tracking-wide px-4 py-2 rounded border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition"
+          >
+            Let's Talk
+          </Link>
+        </div>
+
+        {/* Hamburger Menu - Mobile Only */}
         <button
-          id="menu-toggle"
-          className="focus:outline-none"
+          className="lg:hidden focus:outline-none"
           onClick={toggleMobileMenu}
         >
           <svg
-            className="w-8 h-8 text-gray-800 hover:text-gray-500 transition duration-300"
+            className="w-7 h-7 text-gray-700 hover:text-blue-600 transition"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -70,36 +75,35 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu (Hidden by Default) */}
-      <div
-        id="mobile-menu"
-        className="hidden lg:hidden absolute top-16 left-0 w-full bg-white shadow-md sm:px-10 md:px-32 "
-      >
-        <nav className="flex flex-col items-center text-center px-6 py-4 gap-4 sm:flex-row sm:justify-center sm:space-x-6">
+      {/* Mobile Menu */}
+      {mobileOpen && (
+        <div className="lg:hidden bg-white shadow-md px-6 py-4 space-y-4 text-center animate-slideDown">
           <Link
             to="/"
-            className="text-gray-800 text-sm tracking-widest hover:text-gray-500 transition duration-300"
+            className="block text-sm text-gray-800 tracking-wide hover:text-blue-500 transition"
+            onClick={() => setMobileOpen(false)}
           >
             Home
           </Link>
           <Link
             to="/about"
-            className="text-gray-800 text-sm tracking-widest hover:text-gray-500 transition duration-300"
+            className="block text-sm text-gray-800 tracking-wide hover:text-blue-500 transition"
+            onClick={() => setMobileOpen(false)}
           >
             About
           </Link>
-
           <button
             onClick={() => {
               setModal(true);
               navigate("/auth/login");
+              setMobileOpen(false);
             }}
-            className="w-full sm:w-40 cursor-pointer text-xs tracking-widest bg-gray-600 text-white rounded-sm px-4 md:px-6 py-2 border border-gray-600 transition duration-300 hover:bg-gray-700"
+            className="w-full text-sm bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
           >
             Login
           </button>
-        </nav>
-      </div>
+        </div>
+      )}
     </header>
   );
 }

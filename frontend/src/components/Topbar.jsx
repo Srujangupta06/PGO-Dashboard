@@ -10,12 +10,14 @@ import {
 } from "../utils/utils";
 import Profile from "./Profile";
 import { Tooltip as ReactTooltip } from "react-tooltip";
+
 const Topbar = () => {
   const navigate = useNavigate();
 
   const [profileData, setProfileData] = useState(null);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [lastUploadedFileName, setLastUploadedFileName] = useState(null);
+
   const getProfileData = async () => {
     try {
       const apiUrl = `${backendUrl}/api/user/view-profile`;
@@ -37,10 +39,6 @@ const Topbar = () => {
   useEffect(() => {
     getProfileData();
   }, []);
-
-  // const handleProfileClick = () => {
-  //   navigate("/profile/view");
-  // };
 
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
@@ -83,7 +81,7 @@ const Topbar = () => {
     } catch (err) {
       console.error("Profile Upload Error:", err);
       toast.error("Something went wrong", toastNoficationSettings);
-    } 
+    }
   };
 
   const handleLogout = () => {
@@ -94,33 +92,37 @@ const Topbar = () => {
 
   return (
     <div className="h-16 z-10 w-full">
-      <div className="h-16 z-10 flex w-full justify-between items-center bg-white p-4 shadow-md">
-        {/* Welcome Message */}
+      <div className="h-16 z-10 flex w-full justify-between items-center bg-white p-2 sm:p-4 shadow-md">
+        {/* Welcome Message - Responsive */}
         {profileData !== null ? (
-          <div className="flex flex-col">
-            <h1 className="text-xl font-medium text-gray-600">
-              Welcome back,<span className="text-blue-500 font-semibold">{profileData?.name}</span>
+          <div className="flex flex-col max-w-full overflow-hidden">
+            <h1 className="text-sm sm:text-lg md:text-xl font-medium text-gray-600 flex items-center flex-wrap gap-1">
+              <span className="whitespace-nowrap">Welcome back,</span>
+              <span className="text-blue-500 font-semibold truncate">
+                {profileData?.name}
+              </span>
             </h1>
-            <p className="text-sm text-gray-600 mt-1 italic">
+
+            <p className="text-xs sm:text-sm text-gray-600 mt-0 sm:mt-1 italic hidden sm:block">
               Hope your rooms are filling fast today!
             </p>
           </div>
         ) : (
-          <div className="flex flex-col">
-            <h1 className="text-2xl font-bold text-gray-900">
-              Welcome back,Guest
+          <div className="flex flex-col max-w-full overflow-hidden">
+            <h1 className="text-sm sm:text-lg md:text-xl font-medium text-gray-600">
+              Welcome back, Guest
             </h1>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-xs sm:text-sm text-gray-600 mt-0 sm:mt-1 italic hidden sm:block">
               Hope your rooms are filling fast today!
             </p>
           </div>
         )}
 
-        {/* Icons Section */}
-        <div className="flex items-center gap-x-8  px-8">
+        {/* Icons Section - Responsive */}
+        <div className="flex items-center gap-x-3 sm:gap-x-4 md:gap-x-8 px-2 sm:px-4 md:px-8">
           {/* Profile Icon */}
           <button
-            className="text-blue-500 text-2xl rounded-lg hover:scale-110 transition-transform duration-150 cursor-pointer"
+            className="text-blue-500 text-xl sm:text-2xl rounded-lg hover:scale-110 transition-transform duration-150 cursor-pointer"
             onClick={() => setShowProfileModal(true)}
             data-tooltip-id="profile-tooltip"
             data-tooltip-content="View Profile"
@@ -135,7 +137,7 @@ const Topbar = () => {
           />
           {/* Logout Button */}
           <button
-            className="text-blue-500 text-xl rounded-lg hover:scale-110 transition-transform duration-150 cursor-pointer"
+            className="text-blue-500 text-lg sm:text-xl rounded-lg hover:scale-110 transition-transform duration-150 cursor-pointer"
             onClick={handleLogout}
             data-tooltip-id="logout-tooltip"
             data-tooltip-content="Logout"

@@ -19,15 +19,11 @@ const Login = () => {
 
   const onHandleFormSubmit = (e) => {
     e.preventDefault();
-    // If no errors, proceed with login
     if (!validator.isEmail(email)) {
       setErrorMessage("Invalid Email");
       return;
     }
-    const userCredentials = {
-      email: email,
-      password: password,
-    };
+    const userCredentials = { email, password };
     loginUser(userCredentials);
     setErrorMessage("");
     setEmail("");
@@ -37,42 +33,37 @@ const Login = () => {
   const loginUser = async (userCredentials) => {
     try {
       const apiUrl = `${backendUrl}/api/auth/login`;
-
       const response = await fetch(apiUrl, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userCredentials),
       });
       if (response.ok) {
-        const data = await response.json();
-        const { message, jwtToken } = data;
-        Cookies.set("jwtToken", jwtToken, { expires: 0.25 }); // Expires in 6 hours
+        const { message, jwtToken } = await response.json();
+        Cookies.set("jwtToken", jwtToken, { expires: 0.25 }); // 6 hours
         toast.success(message, loginSuccessToastNotificationSettings);
         navigate("/dashboard");
       } else {
-        const data = await response.json();
-        const { message } = data;
+        const { message } = await response.json();
         toast.error(message, toastNoficationSettings);
       }
     } catch (error) {
       toast.warning("Something went wrong", toastNoficationSettings);
     }
   };
+
   const token = Cookies.get("jwtToken");
-  if (token !== undefined) {
-    return <Navigate to="/dashboard" replace />;
-  }
+  if (token) return <Navigate to="/dashboard" replace />;
+
   return (
-    <div className="flex flex-col items-center min-h-screen pt-8 gap-y-6 bg-gray-50">
-      <h1 className="text-2xl font-semibold">Login</h1>
-      <div className="p-2 w-[90%] md:w-[40%] mx-auto">
+    <div className="flex flex-col justify-center items-center min-h-screen px-4 bg-gray-50">
+      <h1 className="text-3xl font-semibold mb-6 text-center">Login</h1>
+      <div className="w-full max-w-md">
         <form
-          className="px-8 py-8 rounded-md bg-white shadow-md"
+          className="bg-white shadow-md rounded-lg px-6 py-8 space-y-6"
           onSubmit={onHandleFormSubmit}
         >
-          <div className="mb-6">
+          <div>
             <label htmlFor="email" className="block mb-2 font-medium">
               Email
             </label>
@@ -81,15 +72,13 @@ const Login = () => {
               required
               type="email"
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your Email"
-              className="w-full border-b-2 border-gray-300 focus:border-blue-500 outline-none py-1.5 px-1 transition-all duration-200"
+              className="w-full border-b-2 border-gray-300 focus:border-blue-500 outline-none py-2 px-2 transition-all duration-200"
             />
           </div>
 
-          <div className="mb-4 relative">
+          <div>
             <label htmlFor="password" className="block mb-2 font-medium">
               Password
             </label>
@@ -98,12 +87,10 @@ const Login = () => {
                 id="password"
                 required
                 value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                onChange={(e) => setPassword(e.target.value)}
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your Password"
-                className="w-full border-b-2 border-gray-300 focus:border-blue-500 outline-none py-1.5 px-1 pr-10 transition-all duration-200"
+                className="w-full border-b-2 border-gray-300 focus:border-blue-500 outline-none py-2 px-2 pr-10 transition-all duration-200"
               />
               <button
                 type="button"
@@ -118,27 +105,23 @@ const Login = () => {
               </button>
             </div>
           </div>
-          {/* {errorMessage && (
-            <p className="mb-2  text-red-700 font-semibold text-sm">
-              *{errorMessage}
-            </p>
-          )} */}
-          {/* Submit Button */}
-          <button className="mb-4 w-full mt-4 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-all duration-200">
+
+          {errorMessage && (
+            <p className="text-red-600 font-semibold text-sm">* {errorMessage}</p>
+          )}
+
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition-all duration-200"
+          >
             Login
           </button>
-          <div className="flex items-center gap-x-2">
-            <span className="text-gray-500 text-sm">
-              Don't have an Account?
-            </span>
-            <Link to="/auth/register">
-              <span className="text-blue-500 text-sm underline">
-                Register Here
-              </span>
+
+          <div className="text-sm text-center text-gray-600 space-x-2">
+            Don't have an account?{" "}
+            <Link to="/auth/register" className="text-blue-500 underline">
+              Register here
             </Link>
-            {/* <Link to="/register">
-              <span className="text-blue-500 text-sm">Forgot Password</span>
-            </Link> */}
           </div>
         </form>
       </div>

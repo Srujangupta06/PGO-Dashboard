@@ -1,94 +1,81 @@
 const About = () => {
   return (
-    <main className="px-4 sm:px-8 md:px-16 lg:px-32 min-h-screen relative top-[100px]">
-      <section>
+    <main className="px-4 sm:px-8 md:px-16 lg:px-32 pt-24 pb-12 bg-white min-h-screen">
+      <section className="max-w-5xl mx-auto space-y-10">
         {/* What is PGO */}
-        <h1 className="text-2xl font-semibold text-blue-500 tracking-widest mb-4">
-          What is PGO?
-        </h1>
-        <p className="text-md text-gray-600 ">
-          We understand how difficult it is to manage records, track vacancies,
-          and maintain up-to-date hostel details using spreadsheets or
-          paperwork. That’s why we built PGO — a modern solution to help hostel
-          owners stay in control, and make data-driven decisions with ease.
-        </p>
-
-        {/* What We Offer Section */}
         <div>
-          <h2 className="text-2xl font-semibold text-blue-500 tracking-widest mt-8 mb-4">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-blue-500  tracking-normal	  mb-3">
+            What is PGO?
+          </h1>
+          <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
+            We understand how difficult it is to manage records, track
+            vacancies, and maintain up-to-date hostel details using
+            spreadsheets or paperwork. That’s why we built PGO — a modern
+            solution to help hostel owners stay in control and make
+            data-driven decisions with ease.
+          </p>
+        </div>
+
+        {/* What We Offer */}
+        <div>
+          <h2 className="text-2xl sm:text-3xl font-semibold text-blue-500 tracking-normal	 mb-6">
             What we offer
           </h2>
 
-          <div className="space-y-6">
-            <div className="flex items-start gap-4">
-              <div className="text-xl">🏢</div>
-              <div>
-                <h3 className="text-xl text-blue-500 tracking-widest mb-2">
-                  Easy Hostel Registration
-                </h3>
-                <p className="text-md text-gray-600">
-                  Add details like the number of rooms, floors, pricing, and
-                  availability — all from a single dashboard.
-                </p>
+          <div className="space-y-8">
+            {[
+              {
+                icon: "🏢",
+                title: "Easy Hostel Registration",
+                text: "Add details like the number of rooms, floors, pricing, and availability — all from a single dashboard.",
+              },
+              {
+                icon: "🔐",
+                title: "Secure Verification Process",
+                text: "Your submission is reviewed by our admin team to ensure genuine listings and a trusted platform for everyone.",
+              },
+              {
+                icon: "📊",
+                title: "Smart Dashboard Access",
+                text: "Get real-time control over room vacancies, update hostel details anytime, and keep everything organized effortlessly.",
+              },
+              {
+                icon: "⚡",
+                title: "Smooth User Experience",
+                text: "No more clutter. Just clean visuals, smooth navigation, and powerful tools that make management feel easy.",
+              },
+            ].map((item, index) => (
+              <div key={index} className="flex items-start gap-4">
+                <div className="text-2xl">{item.icon}</div>
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-semibold text-blue-500 tracking-wide mb-1">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                    {item.text}
+                  </p>
+                </div>
               </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="text-xl">🔐</div>
-              <div>
-                <h3 className="text-xl text-blue-500 tracking-widest mb-2">
-                  Secure Verification Process
-                </h3>
-                <p className="text-md text-gray-600">
-                  Your submission is reviewed by our admin team to ensure
-                  genuine listings and a trusted platform for everyone.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="text-xl">📊</div>
-              <div>
-                <h3 className="text-xl text-blue-500 tracking-widest mb-2">
-                  Smart Dashboard Access
-                </h3>
-                <p className="text-md text-gray-600">
-                  Get real-time control over room vacancies, update hostel
-                  details anytime, and keep everything organized effortlessly.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="text-xl">⚡</div>
-              <div>
-                <h3 className="text-xl text-blue-500 tracking-widest mb-2">
-                  Smooth User Experience
-                </h3>
-                <p className="text-md text-gray-600">
-                  No more clutter. Just clean visuals, smooth navigation, and
-                  powerful tools that make management feel easy.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        {/* Mission and Vision Section with Grid */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-semibold text-blue-500 tracking-widest mb-6">
+        {/* Mission & Vision Section */}
+        <div>
+          <h2 className="text-2xl sm:text-3xl font-semibold text-blue-500 tracking-normal	 mb-6">
             Our Mission & Vision
           </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Mission */}
-            <div className="border border-gray-200 shadow-lg rounded-xl p-6 bg-white">
+            <div className="p-6 rounded-xl shadow-lg border border-gray-200 bg-white">
               <div className="flex items-start gap-4">
-                <div className="text-xl">🎯</div>
+                <div className="text-2xl">🎯</div>
                 <div>
-                  <h3 className="text-xl  text-blue-500 tracking-widest mb-2">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-blue-500 tracking-wide mb-2">
                     Our Mission
                   </h3>
-                  <p className="text-gray-600 text-md leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                     To empower hostel owners with smart tools that eliminate
                     stress and boost efficiency, creating a new standard in
                     hostel management.
@@ -98,14 +85,14 @@ const About = () => {
             </div>
 
             {/* Vision */}
-            <div className="border border-gray-200 shadow-lg rounded-xl p-6 bg-white">
+            <div className="p-6 rounded-xl shadow-lg border border-gray-200 bg-white">
               <div className="flex items-start gap-4">
-                <div className="text-xl">👁️</div>
+                <div className="text-2xl">👁️</div>
                 <div>
-                  <h3 className="text-xl text-blue-500 tracking-widest mb-2">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-blue-500 tracking-wide mb-2">
                     Our Vision
                   </h3>
-                  <p className="text-gray-600 text-md leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                     To become the most trusted digital platform for hostel
                     operations by combining innovation, simplicity, and
                     reliability.
@@ -121,6 +108,7 @@ const About = () => {
 };
 
 export default About;
+
 
 // <div className="px-4 sm:px-8 md:px-16 lg:px-32  min-h-screen py-8 md:py-20">
 //   {/* Hero Section */}

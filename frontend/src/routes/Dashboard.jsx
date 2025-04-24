@@ -1,10 +1,9 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="h-screen w-screen overflow-hidden">
       <Sidebar />
     </div>
   );

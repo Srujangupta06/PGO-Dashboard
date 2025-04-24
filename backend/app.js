@@ -10,6 +10,8 @@ import cookieParser from "cookie-parser";
 import roomRoutes from "./router/roomRouter.js";
 import authRoutes from "./router/auth.js";
 import reviewRouter from "./router/reviewRouter.js"
+import meesRouter from './router/meesRouter.js'
+
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -33,6 +35,9 @@ app.use("/api/hostel", hostelRoutes);
 app.use("/api/hostel/room", roomRoutes);
 
 app.use('/api/review',reviewRouter);
+
+app.use('api/mess',meesRouter)
+
 const initializeDBAndServer = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
@@ -41,7 +46,7 @@ const initializeDBAndServer = async () => {
       console.log(`Server running on port http://localhost:${PORT}`)
     );
   } catch (error) {
-    console.log(error);
+    console.log(error);                                                                                           
   }
 };
 initializeDBAndServer();

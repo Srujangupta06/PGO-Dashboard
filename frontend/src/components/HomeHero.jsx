@@ -2,30 +2,43 @@ import { Link, useNavigate } from "react-router-dom";
 
 const HomeHero = () => {
   const navigate = useNavigate();
+
   return (
-    <section className="px-6 md:px-32 w-full py-20 md:py-28 min-h-[90vh] flex flex-col items-center justify-center bg-white">
-      <div className="flex flex-col gap-y-6 items-center text-center max-w-3xl">
-      <h1 className="text-xl md:text-2xl font-semibold text-blue-500 leading-relaxed">
-  Tired of Hostel Hassles? <span className="text-2xl md:text-3xl">Let Tech Take Over 🧠⚡</span>
-</h1>
+    <section className="px-4 sm:px-10 lg:px-28 w-full py-16 md:py-24 lg:py-32 min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
+      <div className="flex flex-col gap-6 text-center items-center max-w-3xl w-full">
         
-        <p className="text-md md:text-lg text-gray-600 max-w-xl font-semibold italic" >
+        {/* Heading */}
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-normal leading-snug text-blue-600 dark:text-blue-400">
+          Tired of Hostel Hassles?{" "}
+          <span className="block text-2xl sm:text-3xl md:text-4xl font-semibold mt-1">
+            Let Tech Take Over 🧠⚡
+          </span>
+        </h1>
+
+        {/* Subtext */}
+        <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 font-medium italic">
           No more hostel headaches. Just smooth control.
         </p>
-        <p className="text-lg text-gray-600">
-          Say goodbye to boring <span className="font-medium line-through">spreadsheets and messy records</span>
+
+        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
+          Say goodbye to boring{" "}
+          <span className="font-semibold line-through">
+            spreadsheets and messy records
+          </span>
         </p>
 
-        <div className="flex items-center gap-4 flex-wrap justify-center">
+        {/* Buttons */}
+        <div className="flex flex-wrap justify-center gap-4 mt-4">
           <button
-            className="cursor-pointer  bg-radial from-blue-400 via-blue-500 to-blue-600 text-sm text-white px-6 py-2 rounded hover:bg-blue-600 transition-colors"
             onClick={() => navigate("/auth/login")}
+            className="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 text-white px-6 py-2 rounded text-sm sm:text-base hover:from-blue-500 hover:to-blue-700 transition duration-200"
           >
             Get Started
           </button>
+
           <Link
             to="/about"
-            className="border border-blue-500 text-sm text-blue-500 px-6 py-2 rounded hover:border-blue-600 hover:text-blue-600 transition-colors"
+            className="border border-blue-500 text-blue-500 px-6 py-2 rounded text-sm sm:text-base hover:border-blue-600 hover:text-blue-600 transition duration-200"
           >
             Learn More
           </Link>
